@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: bd1a1112d96db1a4288ffa159600bb14
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - m_Target: {instanceID: 0}
+  - _grassTilemap: {instanceID: 0}
+  - _grassTiles: {fileID: 11400000, guid: bdb42365758c78b41ac8615039d17ada, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
