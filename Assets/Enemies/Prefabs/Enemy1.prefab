@@ -178,6 +178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a511b1c21e03da942b33a33c659cc4af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _element: 0
   _maxHealth: 20
 --- !u!114 &372321738832475570
 MonoBehaviour:
@@ -192,4 +193,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 1
-  _attackDelay: 0.5
+  _attackDelay: 0.2

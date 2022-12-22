@@ -6,6 +6,7 @@ public class IceAnim : MonoBehaviour
 {
 	[SerializeField] Gradient _gradient;
 	private SpriteRenderer _spriteRenderer;
+	private float _time;
 
 	private void Awake()
 	{
@@ -14,6 +15,10 @@ public class IceAnim : MonoBehaviour
 
 	private void Update()
 	{
-		_spriteRenderer.color = _gradient.Evaluate(Time.time % 1);
+		if (!GameManager.IsGamePaused)
+		{
+			_time += Time.deltaTime;
+			_spriteRenderer.color = _gradient.Evaluate(_time % 1);
+		}
 	}
 }

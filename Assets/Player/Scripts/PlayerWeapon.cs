@@ -1,10 +1,11 @@
+using System;
 using UnityEngine;
 
 public class PlayerWeapon : MonoBehaviour
 {
 	[SerializeField] private float _damage = 10;
 	[SerializeField] private int _heal = 1;
-	public ElementsManager ElementsManager;
+	public ElementsManagerUI ElementsManager;
 
 	[Header("Weapons")]
 	[SerializeField] private Weapon[] _weapons;
@@ -29,26 +30,32 @@ public class PlayerWeapon : MonoBehaviour
 
 	private void Update()
 	{
-		if (Input.GetKey(KeyCode.Mouse0))
+		if (!GameManager.IsGamePaused)
 		{
-			TryAttack();
+			CheckElement();
+			CheckAttack();
 		}
+	}
 
+	private void CheckElement()
+	{
 		for (int i = 0; i < _elementsCount; i++)
 		{
-			if (Input.GetKeyDown(KeyCode.Alpha1 + i))
+			if (Input.GetKeyDown(HotKeys.Elements[i]))
 			{
 				SelectElement(i);
 			}
 		}
 
-		if (Input.GetAxis("Mouse ScrollWheel") > 0)
+		int shift = Math.Sign(Input.GetAxis("Mouse ScrollWheel")) * HotKeys.InvertMouseWheel;
+		SelectElement((int)_element + shift);
+	}
+
+	private void CheckAttack()
+	{
+		if (Input.GetKey(HotKeys.Attack))
 		{
-			SelectElement((int)_element + 1);
-		}
-		if (Input.GetAxis("Mouse ScrollWheel") < 0)
-		{
-			SelectElement((int)_element - 1);
+			TryAttack();
 		}
 	}
 

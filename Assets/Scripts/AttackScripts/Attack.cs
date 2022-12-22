@@ -4,16 +4,16 @@ using UnityEngine;
 [RequireComponent(typeof(AttackVisual), typeof(PlayerHealth), typeof(Collider2D))]
 public class Attack : MonoBehaviour
 {
-	[Header("Properties")]
-	[SerializeField] private float _damage = 0;
-	[SerializeField] private int _heal = 0;
+	private float _damage = 0;
+	private int _heal = 0;
 
+	private ElementEnum _element;
 	private EnemyHealth _enemyHealth;
 	private PlayerHealth _playerHealth;
 	private Collider2D _collider;
-	private AttackVisual _ptojectileVisual;
+	private AttackVisual _attackVisual;
 
-	private bool _canBeDestroyed = true;
+	private bool _canBeDestroyed;
 
 	private float _speed = 0;
 	private float _rotationSpeed = 0;
@@ -21,15 +21,18 @@ public class Attack : MonoBehaviour
 	private float _lifeTime = 0;
 	private float _curentLifeTime = 0;
 
-	public void Init(float speed, float rotationSpeed, float lifeTime, bool canBeDestroyed)
-	{	
+	public void Init(float damage, int heal, float speed, float rotationSpeed, float lifeTime, bool canBeDestroyed, ElementEnum elementEnum)
+	{
 		_curentLifeTime = 0;
+		_damage = damage;
+		_heal = heal;
 		_speed = speed;
 		_rotationSpeed = rotationSpeed;
 		_canBeDestroyed = canBeDestroyed;
 		_lifeTime = lifeTime;
 		_collider.enabled = true;
-		_ptojectileVisual.Init();
+		_element = elementEnum;
+		_attackVisual.Init();
 	}
 
 	protected virtual void Disactivate()
@@ -39,16 +42,19 @@ public class Attack : MonoBehaviour
 
 	protected virtual void Awake()
 	{
-		_ptojectileVisual = GetComponent<AttackVisual>();
+		_attackVisual = GetComponent<AttackVisual>();
 		_playerHealth = FindObjectOfType<PlayerHealth>();
 		_collider = GetComponent<Collider2D>();
 	}
 
 	protected virtual void Update()
 	{
-		Move();
-		Rotate();
-		CheckForLifeTime();
+		if (!GameManager.IsGamePaused)
+		{
+			Move();
+			Rotate();
+			CheckForLifeTime();
+		}
 	}
 
 	protected void TryDamage(Collider2D collider)
@@ -91,7 +97,7 @@ public class Attack : MonoBehaviour
 	protected virtual void Damage(Collider2D collision)
 	{
 		collision.TryGetComponent(out _enemyHealth);
-		_enemyHealth?.TakeDamage(_damage);
+		_enemyHealth?.TakeDamage(_element, _damage);
 		_enemyHealth = null;
 	}
 
@@ -115,11 +121,11 @@ public class Attack : MonoBehaviour
 		_speed = 0;
 		_rotationSpeed = 0;
 
-		if (_ptojectileVisual.SaveParticles)
+		if (_attackVisual.SaveParticles)
 		{
-			_ptojectileVisual.Death();
+			_attackVisual.Death();
 
-			yield return new WaitForSeconds(_ptojectileVisual.SafeTime);
+			yield return new WaitForSeconds(_attackVisual.SafeTime);
 		}
 
 		gameObject.SetActive(false);

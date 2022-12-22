@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 589829883961226815}
   - component: {fileID: 7931972026792392922}
   - component: {fileID: 3578184020203758781}
+  - component: {fileID: 4058366202302765925}
   m_Layer: 0
   m_Name: IceProjectile
   m_TagString: Untagged
@@ -189,8 +190,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 609588af1df83184a9b41747f0247ae3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 20
-  _heal: 0
 --- !u!114 &3578184020203758781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,6 +207,20 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 1243564494975328916}
   _particles:
   - {fileID: 3911904614038046712}
+  _particlesWithPrewarm: []
+--- !u!114 &4058366202302765925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5771777744796331524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26cab903f08d83e46880e061ec650a78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 100
 --- !u!1 &8930124085670143265
 GameObject:
   m_ObjectHideFlags: 0

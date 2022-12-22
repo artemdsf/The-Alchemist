@@ -4,10 +4,10 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(AttackVisual))]
 public class Area : Attack
 {
-	[SerializeField] protected float _attackDelay = 0;
-	[SerializeField] protected float _healDelay = 0;
+	private List<Collider2D> _colliders = new List<Collider2D>();
 
-	[SerializeField] private List<Collider2D> _colliders = new List<Collider2D>();
+	private float _attackDelay = 1;
+	private float _healDelay = 1;
 
 	private float _curentAttackDelay = 0;
 	private float _curentHealDelay = 0;
@@ -22,8 +22,11 @@ public class Area : Attack
 
 	protected override void Update()
 	{
-		base.Update();
-		UpdateDelay();
+		if (!GameManager.IsGamePaused)
+		{
+			base.Update();
+			UpdateDelay();
+		}
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
@@ -38,8 +41,11 @@ public class Area : Attack
 
 	private void OnTriggerStay2D(Collider2D collision)
 	{
-		AttackAllEnemies();
-		TryHeal(collision);
+		if (!GameManager.IsGamePaused)
+		{
+			AttackAllEnemies();
+			TryHeal(collision);
+		}
 	}
 
 	private void AttackAllEnemies()

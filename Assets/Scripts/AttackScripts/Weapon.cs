@@ -2,9 +2,13 @@ using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
 {
-	[SerializeField] protected ElementEnum elementEnum;
-    [SerializeField] protected float delay;
-    protected float curectDelay;
+	[SerializeField] private ElementEnum _elementEnum;
+    [SerializeField] private float _delay;
+	private float _curectDelay;
+
+	[Header("Properties")]
+	[SerializeField] private float _damage = 0;
+	[SerializeField] private int _heal = 0;
 
 	[Header("Projectile")]
 	[SerializeField] private float _speed = 5;
@@ -16,34 +20,15 @@ public abstract class Weapon : MonoBehaviour
 	[SerializeField] protected ObjectPool _pool;
 
 	private PlayerWeapon _playerWeapon;
-    private ElementsManager _elementsManager;
+    private ElementsManagerUI _elementsManager;
 
 	public void TryAttack(Vector3 pos, Quaternion quaternion)
 	{
-		if (curectDelay >= delay)
+		if (_curectDelay >= _delay)
 		{
 			Attack(pos, quaternion);
-			curectDelay = 0;
+			_curectDelay = 0;
 		}
-	}
-
-	protected virtual void Start()
-	{
-		if (transform.parent.TryGetComponent(out _playerWeapon))
-			_elementsManager = _playerWeapon.ElementsManager;
-		curectDelay = delay;
-	}
-
-	protected virtual void Update()
-	{
-		curectDelay += Time.deltaTime;
-
-		if (curectDelay > delay)
-		{
-			curectDelay = delay;
-		}
-
-		_elementsManager?.SetReloadBar((int)elementEnum, curectDelay / delay);
 	}
 
 	protected virtual void Attack(Vector3 pos, Quaternion quaternion)
@@ -58,6 +43,33 @@ public abstract class Weapon : MonoBehaviour
 
 	protected void Init(Attack attack)
 	{
-		attack?.Init(_speed, _rotationSpeed, _lifeTime, _canBeDestroyerd);
+		attack?.Init(_damage, _heal, _speed, _rotationSpeed, 
+			_lifeTime, _canBeDestroyerd, _elementEnum);
+	}
+
+	private void Start()
+	{
+		if (transform.parent.TryGetComponent(out _playerWeapon))
+			_elementsManager = _playerWeapon.ElementsManager;
+		_curectDelay = _delay;
+	}
+
+	private void Update()
+	{
+		if (!GameManager.IsGamePaused)
+		{
+			UpdateDelay();
+		}
+	}
+
+	private void UpdateDelay()
+	{
+		_curectDelay += Time.deltaTime;
+
+		if (_curectDelay > _delay)
+		{
+			_curectDelay = _delay;
+		}
+		_elementsManager?.SetReloadBar((int)_elementEnum, _curectDelay / _delay);
 	}
 }

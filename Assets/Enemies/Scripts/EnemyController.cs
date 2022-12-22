@@ -18,7 +18,14 @@ public class EnemyController : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		Vector2 dir = (_player.transform.position - transform.position).normalized;
-		_rb.velocity = dir * _speed;
+		if (!GameManager.IsGamePaused)
+		{
+			Vector2 dir = (_player.transform.position - transform.position).normalized;
+			_rb.velocity = dir * _speed;
+		}
+		else
+		{
+			_rb.velocity = Vector2.zero;
+		}
 	}
 }

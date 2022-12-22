@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
+	[SerializeField] private ElementEnum _element;
     [SerializeField] private float _maxHealth = 20;
     private float _health;
 
@@ -12,9 +13,9 @@ public class EnemyHealth : MonoBehaviour
 		_health = _maxHealth;
 	}
 
-	public void TakeDamage(float dmg)
+	public void TakeDamage(ElementEnum element, float dmg)
 	{
-		_health -= dmg;
+		_health -= dmg * GameManager.GetDamageMult(element, _element);
 
 		if (_health <= 0)
 		{

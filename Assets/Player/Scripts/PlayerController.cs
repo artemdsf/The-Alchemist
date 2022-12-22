@@ -27,8 +27,11 @@ public class PlayerController : MonoBehaviour
 
 	private void Update()
 	{
-		Move();
-		CheckBarrier();
+		if (!GameManager.IsGamePaused)
+		{
+			Move();
+			CheckBarrier();
+		}
 	}
 
 	private void Move()

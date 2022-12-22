@@ -51,6 +51,10 @@ public class AttackVisual : MonoBehaviour
 			emission = _particlesWithPrewarm[i].emission;
 			emission.rateOverTime = _emissionsWithPrewarm[i];
 		}
+		if (_spriteRenderer != null)
+		{
+			_spriteRenderer.enabled = true;
+		}
 	}
 
 	public void Death()

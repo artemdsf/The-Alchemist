@@ -14,8 +14,11 @@ public class RockAnim : MonoBehaviour
 
 	private void Update()
 	{
-		_color += Time.deltaTime * _gradSpeed;
-		_color %= 1;	
-		_material.SetVector("_EmissionColor", _gradient.Evaluate(_color));
+		if (!GameManager.IsGamePaused)
+		{
+			_color += Time.deltaTime * _gradSpeed;
+			_color %= 1;
+			_material.SetVector("_EmissionColor", _gradient.Evaluate(_color));
+		}
 	}
 }

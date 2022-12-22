@@ -27,6 +27,14 @@ public class EnemySpawner : MonoBehaviour
 
 	private void Update()
 	{
+		if (!GameManager.IsGamePaused)
+		{
+			CheckSpawnEnemy();
+		}
+	}
+
+	private void CheckSpawnEnemy()
+	{
 		_curentTime += Time.deltaTime;
 		if (_curentTime > _spawnTime)
 		{
