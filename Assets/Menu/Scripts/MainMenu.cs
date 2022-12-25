@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,7 +11,7 @@ public class MainMenu : MonoBehaviour
 		_settingMenu.SetActive(false);
 	}
 
-	public void StartButton(string sceneName)
+	public void LoadButton(string sceneName)
 	{
 		SceneManager.LoadSceneAsync(sceneName);
 	}

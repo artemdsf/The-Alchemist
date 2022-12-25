@@ -1,5 +1,5 @@
 using UnityEngine;
 
-public class IceProjectile : Projectile
+public class IceProjectile : PlayerProjectile
 {
 }

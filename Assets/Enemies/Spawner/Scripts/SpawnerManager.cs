@@ -1,9 +1,9 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnerManager : MonoBehaviour
 {
-	[SerializeField] private List<GameObject> _spawners;
+	[SerializeField] private GameObject _spawner;
+	[SerializeField] private Color[] _colors;
 	[SerializeField] private float _spawnTime = 1;
 	[SerializeField] private ObjectPool _pool;
 	[Header("Spawn range mult")]
@@ -37,10 +37,13 @@ public class SpawnerManager : MonoBehaviour
 
 	private void SetSpawner(ElementEnum element, Vector2 pos)
 	{
-		GameObject _spawner = Instantiate(
-			_spawners[(int)element], pos, Quaternion.identity, transform);
-		_spawner.TryGetComponent(out EnemySpawner _enemySpawner);
-		_enemySpawner?.Init(_player, _pool, _spawnRangeMult, _spawnTime);
+		GameObject spawner = Instantiate(_spawner, pos, Quaternion.identity, transform);
+		spawner.TryGetComponent(out SpriteRenderer spriteRenderer);
+		if (spriteRenderer != null)
+			spriteRenderer.color = _colors[(int)element];
+		spawner.TryGetComponent(out EnemySpawner enemySpawner);
+		enemySpawner?.Init(element, _colors[(int)element], _player,
+			_pool, _spawnRangeMult, _spawnTime);
 	}
 
 	private void StartNextStage()

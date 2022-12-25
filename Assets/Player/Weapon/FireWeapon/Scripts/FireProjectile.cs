@@ -1,5 +1,5 @@
 using UnityEngine;
 
-public class FireProjectile : Projectile
+public class FireProjectile : PlayerProjectile
 {
 }

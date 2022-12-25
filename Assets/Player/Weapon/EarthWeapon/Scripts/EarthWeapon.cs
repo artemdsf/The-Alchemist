@@ -16,8 +16,8 @@ public class EarthWeapon : Weapon
 			newObject.SetActive(true);
 			newObject.transform.position = pos;
 			newObject.transform.rotation = tmp;
-			newObject.TryGetComponent(out Projectile newProjectile);
-			Init(newProjectile);
+			newObject.TryGetComponent(out PlayerProjectile newProjectile);
+			InitAttack(newProjectile);
 		}
 	}
 }

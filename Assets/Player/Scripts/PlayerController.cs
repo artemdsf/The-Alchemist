@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(PlayerHealth), typeof(PlayerWeapon))]
+[RequireComponent(typeof(Rigidbody2D), typeof(PlayerHealth), typeof(PlayerWeaponManager))]
 public class PlayerController : MonoBehaviour
 {
 	private Transform _player;

@@ -1,30 +1,58 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-	[SerializeField] private ElementEnum _element;
-    [SerializeField] private float _maxHealth = 20;
-    private float _health;
+	public bool IsDead => _isDead;
 
-	private void Awake()
-	{
-		_health = _maxHealth;
-	}
+    [SerializeField] private float _maxHealth = 20;
+	private EnemyVisual _enemyVisual;
+	private Animator _animator;
+	private Collider2D _collider;
+	private ElementEnum _element;
+	private Color _color;
+	private bool _isDead;
+	private float _health;
 
 	public void TakeDamage(ElementEnum element, float dmg)
 	{
 		_health -= dmg * GameManager.GetDamageMult(element, _element);
 
-		if (_health <= 0)
+		if (_health <= 0 && !_isDead)
 		{
-			Death();
+			StartDeath();
 		}
 	}
 
-	private void Death()
+	public void Init(ElementEnum element, Color color)
+	{
+		_collider.enabled = true;
+		_health = _maxHealth;
+		_element = element;
+		_color = color;
+		_isDead = false;
+	}
+
+	protected void Death()
 	{
 		gameObject.SetActive(false);
+	}
+
+	private void Awake()
+	{
+		_collider = GetComponent<Collider2D>();
+		_animator = GetComponent<Animator>();
+	}
+
+	private void Start()
+	{
+		TryGetComponent(out _enemyVisual);
+		_enemyVisual?.ChangeColor(_color);
+	}
+
+	private void StartDeath()
+	{
+		_isDead = true;
+		_collider.enabled = false;
+		_animator.SetTrigger("Death");
 	}
 }

@@ -1,5 +1,5 @@
 using UnityEngine;
 
-public class WaterProjectile : Projectile
+public class WaterProjectile : PlayerProjectile
 {
 }

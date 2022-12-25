@@ -1,5 +1,5 @@
 using UnityEngine;
 
-public class EarthProjectile : Projectile
+public class EarthProjectile : PlayerProjectile
 { 
 }
