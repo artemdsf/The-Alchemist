@@ -8,23 +8,29 @@ public class EnemySpawner : MonoBehaviour
 	private ObjectPool _pool;
 	private ElementEnum _element;
 	private Color _color;
-	private float _spawnTime;
+
 	private float _spawnRangeMult;
 	private float _spawnRange;
+	private float _spawnTime;
 	private float _curentTime;
 
-	public void Init(ElementEnum element, Color color, GameObject player, 
+	private void Awake()
+	{
+		_player = GameObject.FindGameObjectWithTag("Player");
+		_enemyHealth = GetComponent<EnemyHealth>();
+	}
+
+	public void Init(ElementEnum element, Color color, 
 		ObjectPool pool, float spawnRangeMult, float spawnTime)
 	{
-		_curentTime = 0;
 		_element = element;
-		_player = player;
 		_spawnRangeMult = spawnRangeMult;
 		_spawnTime = spawnTime;
 		_pool = pool;
 		_color = color;
 
-		_enemyHealth = GetComponent<EnemyHealth>();
+		_curentTime = 0;
+
 		_enemyHealth.Init(_element, _color);
 
 		_spawnRange = Camera.main.orthographicSize * _spawnRangeMult;
@@ -50,8 +56,9 @@ public class EnemySpawner : MonoBehaviour
 
 	private void SpawnEnemy()
 	{
-		Vector3 pos = _player.transform.position + 
-			(Vector3)Random.insideUnitCircle.normalized * _spawnRange;
+		Vector3 distVector = Random.insideUnitCircle.normalized * _spawnRange;
+		Vector3 pos = _player.transform.position + distVector;
+
 		GameObject gameObject = _pool.GetPooledObject();
 		gameObject.SetActive(true);
 		gameObject.transform.position = pos;

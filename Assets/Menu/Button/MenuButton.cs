@@ -15,7 +15,7 @@ public class MenuButton : MonoBehaviour
 		AnimatorControllerParameter parameter;
 		for (int i = 0; i < _animator.parameterCount; i++)
 		{
-			parameter = _animator.GetParameter(0);
+			parameter = _animator.GetParameter(i);
 			if (parameter.type == AnimatorControllerParameterType.Trigger)
 			{
 				_animator.ResetTrigger(parameter.name);

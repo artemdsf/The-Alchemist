@@ -12,11 +12,13 @@ public class EarthWeapon : Weapon
 		for (int i = 0; i < _rocksCont; i++)
 		{
 			Quaternion tmp = Quaternion.Euler(Vector3.forward * CIRCLE_DEGREES * i / _rocksCont);
+
 			GameObject newObject = _pool.GetPooledObject();
-			newObject.SetActive(true);
 			newObject.transform.position = pos;
 			newObject.transform.rotation = tmp;
+			newObject.SetActive(true);
 			newObject.TryGetComponent(out PlayerProjectile newProjectile);
+
 			InitAttack(newProjectile);
 		}
 	}

@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
 	private Vector3 _speed;
 
 	[SerializeField] [Min(0)] private float _maxSpeed = 10;
-	[SerializeField] [Range(0, 0.1f)] private float _lerpSpeed = 0.01f;
+	private float _lerpSpeed = 10f;
 
 	[Header("Gizmos")]
 	[SerializeField] private Color _barrierGizmosColor;
@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
 		_direction.x = Input.GetAxisRaw("Horizontal");
 		_direction.y = Input.GetAxisRaw("Vertical");
 
-		_speed = Vector2.Lerp(_speed, _direction.normalized * _maxSpeed, _lerpSpeed);
+		_speed = Vector2.Lerp(_speed, _direction.normalized * _maxSpeed, _lerpSpeed * Time.deltaTime);
 
 		_player.position += _speed * Time.deltaTime;
 	}

@@ -3,17 +3,29 @@ using UnityEngine;
 public class SpawnerManager : MonoBehaviour
 {
 	[SerializeField] private GameObject _spawner;
-	[SerializeField] private Color[] _colors;
-	[SerializeField] private float _spawnTime = 1;
 	[SerializeField] private ObjectPool _pool;
+	[SerializeField] private Color[] _elementColors;
+	[SerializeField] private float _spawnTime = 1;
+
 	[Header("Spawn range mult")]
 	[SerializeField] private float _spawnRangeMult = 2.3f;
 	[SerializeField] private float _spawnSpawnerRangeMult = 2;
+
 	[Header("Gizmos")]
-	[SerializeField] private Color _gizmosColor;
 	[SerializeField] private GameObject _player;
+	[SerializeField] private Color _gizmosColor;
+
 	private float _spawnRange;
 	private int _stage = 0;
+	private int _elementCount;
+	private Vector2 _spawnArea;
+
+	private void Awake()
+	{
+		_elementCount = System.Enum.GetNames(typeof(ElementEnum)).Length;
+		Vector2 barrierSize = Vector2.one * Camera.main.orthographicSize * 2;
+		_spawnArea = GameManager.FieldSize - barrierSize;
+	}
 
 	private void Start()
 	{
@@ -38,11 +50,13 @@ public class SpawnerManager : MonoBehaviour
 	private void SetSpawner(ElementEnum element, Vector2 pos)
 	{
 		GameObject spawner = Instantiate(_spawner, pos, Quaternion.identity, transform);
+
 		spawner.TryGetComponent(out SpriteRenderer spriteRenderer);
 		if (spriteRenderer != null)
-			spriteRenderer.color = _colors[(int)element];
+			spriteRenderer.color = _elementColors[(int)element];
+
 		spawner.TryGetComponent(out EnemySpawner enemySpawner);
-		enemySpawner?.Init(element, _colors[(int)element], _player,
+		enemySpawner?.Init(element, _elementColors[(int)element],
 			_pool, _spawnRangeMult, _spawnTime);
 	}
 
@@ -51,7 +65,7 @@ public class SpawnerManager : MonoBehaviour
 		_stage++;
 		for (int i = 0; i < _stage; i++)
 		{
-			if (i < System.Enum.GetNames(typeof(ElementEnum)).Length)
+			if (i < _elementCount)
 			{
 				SetSpawner((ElementEnum)i, GetSpawnPosition());
 			}
@@ -77,14 +91,14 @@ public class SpawnerManager : MonoBehaviour
 
 	private Vector3 GetSpawnPosition()
 	{
-		Vector2 spawnArea = GameManager.FieldSize - Vector2.one * Camera.main.orthographicSize * 2;
 		Vector3 pos = new Vector2(
-			Random.Range(-spawnArea.x, spawnArea.x),
-			Random.Range(-spawnArea.y, spawnArea.y));
-		if ((pos - _player.transform.position).magnitude < _spawnRange)
+			Random.Range(-_spawnArea.x, _spawnArea.x),
+			Random.Range(-_spawnArea.y, _spawnArea.y));
+
+		Vector3 distVector = pos - _player.transform.position;
+		if (distVector.magnitude < _spawnRange)
 		{
-			pos += (pos - _player.transform.position).normalized * 
-				_spawnRange * _spawnSpawnerRangeMult;
+			pos += distVector.normalized * _spawnRange * _spawnSpawnerRangeMult;
 		}
 		return pos;
 	}

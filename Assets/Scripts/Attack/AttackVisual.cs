@@ -6,11 +6,12 @@ public class AttackVisual : MonoBehaviour
 	public float SafeTime => _safeTime;
 	public bool SaveParticles => _saveParticles;
 
-	[SerializeField] private float _safeTime = 1;
-	[SerializeField] private bool _saveParticles;
-    [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private List<ParticleSystem> _particles = new List<ParticleSystem>();
     [SerializeField] private List<ParticleSystem> _particlesWithPrewarm = new List<ParticleSystem>();
+    [SerializeField] private SpriteRenderer _spriteRenderer;
+	[SerializeField] private float _safeTime = 1;
+	[SerializeField] private bool _saveParticles;
+
 	private float[] _emissions;
 	private float[] _emissionsWithPrewarm;
 

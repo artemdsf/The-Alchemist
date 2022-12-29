@@ -56,21 +56,15 @@ public class TileGenerator : MonoBehaviour
 	{
 		float cameraSize = Camera.main.orthographicSize;
 
+		_size = new Vector3(cameraSize * 2, _fieldSize.y * 2, 1);
 		_pos = Vector3.left * (_fieldSize.x - cameraSize);
-		_size = new Vector3(cameraSize * 2, _fieldSize.y * 2, 1);
 		SpawnBarrier(_pos, _size);
-
-		_pos = Vector3.right * (_fieldSize.x - cameraSize);
-		_size = new Vector3(cameraSize * 2, _fieldSize.y * 2, 1);
-		SpawnBarrier(_pos, _size);
-
+		SpawnBarrier(-_pos, _size);
+		
+		_size = new Vector3(_fieldSize.x * 2 - cameraSize * 4, cameraSize, 1);
 		_pos = Vector3.up * (_fieldSize.y - cameraSize / 2);
-		_size = new Vector3(_fieldSize.x * 2 - cameraSize * 4, cameraSize, 1);
 		SpawnBarrier(_pos, _size);
-
-		_pos = Vector3.down * (_fieldSize.y - cameraSize / 2);
-		_size = new Vector3(_fieldSize.x * 2 - cameraSize * 4, cameraSize, 1);
-		SpawnBarrier(_pos, _size);
+		SpawnBarrier(-_pos, _size);
 	}
 
 	private void SpawnBarrier(Vector3 pos, Vector3 size)

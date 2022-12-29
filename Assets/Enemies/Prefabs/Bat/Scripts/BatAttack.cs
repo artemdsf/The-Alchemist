@@ -14,11 +14,7 @@ public class BatAttack : EnemyAttack
 
 	private void Update()
 	{
-		if (GameManager.IsGamePaused)
-		{
-			_animator.speed = 0;
-		}
-		else
+		if (!GameManager.IsGamePaused)
 		{
 			_animator.speed = 1;
 			if (CheckRange())
@@ -30,6 +26,18 @@ public class BatAttack : EnemyAttack
 				EndAttack();
 			}
 		}
+		else
+		{
+			_animator.speed = 0;
+		}
+	}
+
+	protected void TryToHit()
+	{
+		if (CheckRange())
+		{
+			Hit();
+		}
 	}
 
 	private void StartAttack()
@@ -40,14 +48,6 @@ public class BatAttack : EnemyAttack
 	private void EndAttack()
 	{
 		_animator.ResetTrigger("Attack");
-	}
-
-	protected void TryToHit()
-	{
-		if (CheckRange())
-		{
-			Hit();
-		}
 	}
 
 	private bool CheckRange()

@@ -5,13 +5,14 @@ public class EnemyHealth : MonoBehaviour
 	public bool IsDead => _isDead;
 
     [SerializeField] private float _maxHealth = 20;
+
 	private EnemyVisual _enemyVisual;
-	private Animator _animator;
 	private Collider2D _collider;
+	private Animator _animator;
 	private ElementEnum _element;
 	private Color _color;
-	private bool _isDead;
 	private float _health;
+	private bool _isDead;
 
 	public void TakeDamage(ElementEnum element, float dmg)
 	{
@@ -25,10 +26,10 @@ public class EnemyHealth : MonoBehaviour
 
 	public void Init(ElementEnum element, Color color)
 	{
-		_collider.enabled = true;
-		_health = _maxHealth;
 		_element = element;
 		_color = color;
+		_health = _maxHealth;
+		_collider.enabled = true;
 		_isDead = false;
 	}
 

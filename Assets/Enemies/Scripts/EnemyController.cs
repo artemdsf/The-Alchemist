@@ -1,47 +1,76 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(EnemyHealth), typeof(EnemyAttack))]
+[RequireComponent(typeof(Collider2D))]
 public class EnemyController : MonoBehaviour
 {
-	private GameObject _player;
+	[SerializeField] [Min(0)] protected float _speed = 1f;
+
+	protected bool isAlive => !_health.IsDead;
+
+	protected GameObject player;
+
 	private Rigidbody2D _rb;
 	private EnemyHealth _health;
 	private Vector3 _scale;
 
-	[SerializeField] [Min(0)] private float _speed = 1f;
+	private bool _isOrientRight;
 
-	private void Awake()
+	protected virtual void Awake()
 	{
 		_health = GetComponent<EnemyHealth>();
-	}
-
-	private void Start()
-	{
-		_player = GameObject.FindGameObjectWithTag("Player");
 		_rb = GetComponent<Rigidbody2D>();
-		_rb.gravityScale = 0;
 		_scale = transform.localScale;
 	}
 
-	private void FixedUpdate()
+	protected virtual void Start()
 	{
-		if (!GameManager.IsGamePaused && !_health.IsDead)
-		{
-			Vector2 dir = (_player.transform.position - transform.position).normalized;
-			_rb.velocity = dir * _speed;
+		player = GameObject.FindGameObjectWithTag("Player");
+	}
 
-			if (_rb.velocity.x < 0)
-			{
-				transform.localScale = new Vector3(-_scale.x, _scale.y, _scale.z);
-			}
-			else
-			{
-				transform.localScale = new Vector3(_scale.x, _scale.y, _scale.z);
-			}
+	protected virtual void Update()
+	{
+		if (!GameManager.IsGamePaused)
+		{
+			SetOrientation();
+		}
+	}
+
+	protected virtual void FixedUpdate()
+	{
+		if (!GameManager.IsGamePaused && isAlive)
+		{
+			Run(player.transform.position - transform.position);
 		}
 		else
 		{
-			_rb.velocity = Vector2.zero;
+			Run(player.transform.position - transform.position, 0);
+		}
+	}
+
+	protected void Run(Vector3 dir)
+	{
+		dir = dir.normalized;
+		_rb.velocity = dir * _speed;
+	}
+
+	protected void Run(Vector3 pos, float speed)
+	{
+		Vector2 dir = (pos - transform.position).normalized;
+		_rb.velocity = dir * speed;
+	}
+
+	protected void SetOrientation()
+	{
+		if (_rb.velocity.x > 0 && _isOrientRight)
+		{
+			transform.localScale = new Vector3(_scale.x, _scale.y, _scale.z);
+			_isOrientRight = false;
+		}
+		else if (_rb.velocity.x < 0 && !_isOrientRight)
+		{
+			transform.localScale = new Vector3(-_scale.x, _scale.y, _scale.z);
+			_isOrientRight = true;
 		}
 	}
 }
