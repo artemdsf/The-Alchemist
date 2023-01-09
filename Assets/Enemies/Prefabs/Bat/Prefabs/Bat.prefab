@@ -16,9 +16,9 @@ GameObject:
   - component: {fileID: 5751594497824546349}
   - component: {fileID: 6176943607929352075}
   - component: {fileID: 8029967389376090824}
-  - component: {fileID: 4696783188722523031}
+  - component: {fileID: 3695518225016450946}
   m_Layer: 0
-  m_Name: Bat 1
+  m_Name: Bat
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -189,7 +189,7 @@ MonoBehaviour:
   _damage: 2
   _attackOffset: {x: 0, y: -0.2}
   _attackRange: 1.5
---- !u!114 &4696783188722523031
+--- !u!114 &3695518225016450946
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

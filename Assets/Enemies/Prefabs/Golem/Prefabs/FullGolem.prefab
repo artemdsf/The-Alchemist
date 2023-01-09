@@ -14,6 +14,9 @@ GameObject:
   - component: {fileID: 4257163972997972227}
   - component: {fileID: 2115397382959728396}
   - component: {fileID: 7355983877685351927}
+  - component: {fileID: 5350095693756624087}
+  - component: {fileID: 4049601903852789748}
+  - component: {fileID: 2257682425850777483}
   m_Layer: 0
   m_Name: FullGolem
   m_TagString: Enemy
@@ -157,3 +160,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f58109aff160437439d14894e15698dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _speed: 4
+  _timeToChangeDir: 0.5
+  _wobbleRatio: 0.9
+  _lerpRatio: 5
+--- !u!114 &5350095693756624087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1634616408036753517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc51923f261ed094c8c46ffcc5a678ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 20
+--- !u!114 &4049601903852789748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1634616408036753517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eceb555eee4cb8e40b7a0f8254d74711, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 1
+  _animator: {fileID: 0}
+--- !u!114 &2257682425850777483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1634616408036753517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fc6953d112270243903329391c6f5ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleSystems: []

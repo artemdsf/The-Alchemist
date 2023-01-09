@@ -1,21 +1,26 @@
 using UnityEngine;
-
 public class EnemyAttack : MonoBehaviour
 {
 	[Header("Attack properties")]
 	[SerializeField] [Min(0)] private int _damage = 1;
 
-	protected PlayerHealth _playerHealth;
-	protected GameObject _player;
+	protected GameObject player;
 
-	protected void Hit()
+	private PlayerHealth _playerHealth;
+
+	public void Init(GameObject player)
+	{
+		this.player = player;
+	}
+
+	protected void HitPlayer()
 	{
 		_playerHealth.Damage(_damage);
 	}
 
 	private void Start()
 	{
-		_player = GameObject.FindGameObjectWithTag("Player");
-		_playerHealth = _player.GetComponent<PlayerHealth>();
+		player = GameObject.FindGameObjectWithTag("Player");
+		_playerHealth = player.GetComponent<PlayerHealth>();
 	}
 }

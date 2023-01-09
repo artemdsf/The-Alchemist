@@ -36,7 +36,7 @@ public class BatAttack : EnemyAttack
 	{
 		if (CheckRange())
 		{
-			Hit();
+			HitPlayer();
 		}
 	}
 
@@ -52,7 +52,7 @@ public class BatAttack : EnemyAttack
 
 	private bool CheckRange()
 	{
-		return (_player.transform.position - (transform.position + (Vector3)_attackOffset)).magnitude < _attackRange;
+		return (player.transform.position - (transform.position + (Vector3)_attackOffset)).magnitude < _attackRange;
 	}
 
 	private void OnDrawGizmos()

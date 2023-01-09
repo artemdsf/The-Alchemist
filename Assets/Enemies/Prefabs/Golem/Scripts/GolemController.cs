@@ -1,17 +1,14 @@
 using UnityEngine;
 
+[RequireComponent(typeof(GolemHealth), typeof(GolemAttack))]
 public class GolemController : EnemyController
 {
 	[SerializeField] private float _timeToChangeDir;
 	[SerializeField] [Range(0, 1)] private float _wobbleRatio;
 	[SerializeField] private float _lerpRatio;
-	[Header("Mana")]
-	[SerializeField] private float _maxMana;
-	[SerializeField] private float _manaRegen;
 
 	private Vector3 _lastDirection = Vector3.zero;
 	private Vector3 _curentDirection;
-	private float _mana;
 	private float _curentTimeToChangeDir;
 	private bool _isAbleToMove = true;
 
@@ -19,7 +16,6 @@ public class GolemController : EnemyController
 	{
 		base.Awake();
 
-		_mana = _maxMana;
 		_curentTimeToChangeDir = _timeToChangeDir;
 	}
 
@@ -27,7 +23,7 @@ public class GolemController : EnemyController
 	{
 		base.Update();
 
-		if (!GameManager.IsGamePaused)
+		if (!GameManager.IsGamePaused && isAlive)
 		{
 			_curentTimeToChangeDir += Time.deltaTime;
 		}

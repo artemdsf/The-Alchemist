@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyVisual : MonoBehaviour
+public class EnemyColor : MonoBehaviour
 {
 	[SerializeField] private ParticleSystem[] particleSystems;
 	private SpriteRenderer _spriteRenderer;

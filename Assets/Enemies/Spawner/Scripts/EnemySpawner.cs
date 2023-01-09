@@ -1,9 +1,9 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D), typeof(EnemyHealth))]
+[RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D), typeof(EnemyController))]
 public class EnemySpawner : MonoBehaviour
 {
-	private EnemyHealth _enemyHealth;
+	private EnemyController _enemyController;
 	private GameObject _player;
 	private ObjectPool _pool;
 	private ElementEnum _element;
@@ -17,7 +17,7 @@ public class EnemySpawner : MonoBehaviour
 	private void Awake()
 	{
 		_player = GameObject.FindGameObjectWithTag("Player");
-		_enemyHealth = GetComponent<EnemyHealth>();
+		_enemyController = GetComponent<EnemyController>();
 	}
 
 	public void Init(ElementEnum element, Color color, 
@@ -31,7 +31,7 @@ public class EnemySpawner : MonoBehaviour
 
 		_curentTime = 0;
 
-		_enemyHealth.Init(_element, _color);
+		_enemyController.Init(_element, _color);
 
 		_spawnRange = Camera.main.orthographicSize * _spawnRangeMult;
 	}
@@ -62,7 +62,7 @@ public class EnemySpawner : MonoBehaviour
 		GameObject gameObject = _pool.GetPooledObject();
 		gameObject.SetActive(true);
 		gameObject.transform.position = pos;
-		gameObject.TryGetComponent(out EnemyHealth enemyHealth);
-		enemyHealth.Init(_element, _color);
+		gameObject.TryGetComponent(out EnemyController enemyController);
+		enemyController.Init(_element, _color);
 	}
 }

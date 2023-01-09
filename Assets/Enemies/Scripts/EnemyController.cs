@@ -1,10 +1,12 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(EnemyHealth), typeof(EnemyAttack))]
-[RequireComponent(typeof(Collider2D))]
+[RequireComponent(typeof(EnemyColor), typeof(EnemyHealth), typeof(EnemyAttack))]
+[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class EnemyController : MonoBehaviour
 {
-	[SerializeField] [Min(0)] protected float _speed = 1f;
+	public ElementEnum Element => _element;
+
+	[SerializeField] [Min(0)] private float _speed = 1f;
 
 	protected bool isAlive => !_health.IsDead;
 
@@ -12,9 +14,20 @@ public class EnemyController : MonoBehaviour
 
 	private Rigidbody2D _rb;
 	private EnemyHealth _health;
-	private Vector3 _scale;
+	private EnemyColor _enemyColor;
+
+	private ElementEnum _element;
+	private Color _color = Color.white;
+
+	private Vector3 _scale = Vector3.one;
 
 	private bool _isOrientRight;
+
+	public void Init(ElementEnum element, Color color)
+	{
+		_element = element;
+		_color = color;
+	}
 
 	protected virtual void Awake()
 	{
@@ -26,6 +39,11 @@ public class EnemyController : MonoBehaviour
 	protected virtual void Start()
 	{
 		player = GameObject.FindGameObjectWithTag("Player");
+
+		TryGetComponent(out _enemyColor);
+		_enemyColor?.ChangeColor(_color);
+
+		_health.Init(_element);
 	}
 
 	protected virtual void Update()

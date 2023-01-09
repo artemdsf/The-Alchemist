@@ -1379,19 +1379,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7355983877685351927, guid: e027e5c913ce5ec44bcaf9851f764978, type: 3}
       propertyPath: _speed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7355983877685351927, guid: e027e5c913ce5ec44bcaf9851f764978, type: 3}
-      propertyPath: _lerpRatio
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7355983877685351927, guid: e027e5c913ce5ec44bcaf9851f764978, type: 3}
       propertyPath: _wobbleRatio
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 7355983877685351927, guid: e027e5c913ce5ec44bcaf9851f764978, type: 3}
-      propertyPath: _timeToChangeDir
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e027e5c913ce5ec44bcaf9851f764978, type: 3}

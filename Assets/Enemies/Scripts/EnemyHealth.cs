@@ -6,11 +6,11 @@ public class EnemyHealth : MonoBehaviour
 
     [SerializeField] private float _maxHealth = 20;
 
-	private EnemyVisual _enemyVisual;
 	private Collider2D _collider;
 	private Animator _animator;
+
 	private ElementEnum _element;
-	private Color _color;
+	
 	private float _health;
 	private bool _isDead;
 
@@ -24,10 +24,9 @@ public class EnemyHealth : MonoBehaviour
 		}
 	}
 
-	public void Init(ElementEnum element, Color color)
+	public void Init(ElementEnum element)
 	{
 		_element = element;
-		_color = color;
 		_health = _maxHealth;
 		_collider.enabled = true;
 		_isDead = false;
@@ -42,12 +41,6 @@ public class EnemyHealth : MonoBehaviour
 	{
 		_collider = GetComponent<Collider2D>();
 		_animator = GetComponent<Animator>();
-	}
-
-	private void Start()
-	{
-		TryGetComponent(out _enemyVisual);
-		_enemyVisual?.ChangeColor(_color);
 	}
 
 	private void StartDeath()
