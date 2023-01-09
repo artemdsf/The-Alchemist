@@ -7,8 +7,8 @@ public abstract class Weapon : MonoBehaviour
 
 	[Header("Properties")]
     [SerializeField] private float _delay;
-	[SerializeField] private float _damage = 0;
-	[SerializeField] private int _heal = 0;
+	[SerializeField] private uint _damage = 0;
+	[SerializeField] private uint _heal = 0;
 
 	[Header("Projectile")]
 	[SerializeField] private float _speed = 5;
@@ -48,8 +48,7 @@ public abstract class Weapon : MonoBehaviour
 
 	protected void InitAttack(PlayerAttack attack)
 	{
-		attack?.Init(_damage, _heal, _speed, _rotationSpeed, 
-			_lifeTime, _canBeDestroyerd, _elementEnum);
+		attack?.Init(_damage, _heal, _speed, _rotationSpeed, _lifeTime, _canBeDestroyerd, _elementEnum);
 	}
 
 	private void Start()

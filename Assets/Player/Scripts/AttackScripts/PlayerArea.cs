@@ -44,7 +44,7 @@ public class PlayerArea : PlayerAttack
 		if (!GameManager.IsGamePaused)
 		{
 			Attack();
-			TryHeal(collision);
+			TryHealPlayer(collision);
 		}
 	}
 
@@ -60,11 +60,11 @@ public class PlayerArea : PlayerAttack
 		}
 	}
 
-	protected override void TryHeal(Collider2D collider)
+	protected override void TryHealPlayer(Collider2D collider)
 	{
-		if (_curentHealDelay > _healDelay)
+		if (_curentHealDelay > _healDelay && collider.tag == "Player")
 		{
-			base.TryHeal(collider);
+			base.TryHealPlayer(collider);
 			_curentHealDelay = 0;
 		}
 	}

@@ -9525,7 +9525,6 @@ GameObject:
   - component: {fileID: 7325914214893875462}
   - component: {fileID: 2361584846458805782}
   - component: {fileID: 3185910931943102875}
-  - component: {fileID: 2470082115213728009}
   m_Layer: 0
   m_Name: LifeArea
   m_TagString: Untagged
@@ -9650,11 +9649,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 708d5e5c030fe374cb4dcdb8f75867f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 4
-  _heal: 1
-  _attackDelay: 1
-  _healDelay: 1
-  _colliders: []
 --- !u!114 &3185910931943102875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9667,23 +9661,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bb2c0856e638ef42951865ddc56c122, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _safeTime: 1
-  _saveParticles: 0
-  _spriteRenderer: {fileID: 3932058391186270791}
   _particles:
   - {fileID: 1328536332798803342}
   - {fileID: 1328536332798803340}
   _particlesWithPrewarm: []
---- !u!114 &2470082115213728009
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5430531687245673668}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26cab903f08d83e46880e061ec650a78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxHealth: 100
+  _spriteRenderer: {fileID: 3932058391186270791}
+  _safeTime: 1
+  _saveParticles: 0

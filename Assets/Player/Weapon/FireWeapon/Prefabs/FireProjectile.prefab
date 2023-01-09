@@ -9515,7 +9515,6 @@ GameObject:
   - component: {fileID: 8543479327508162217}
   - component: {fileID: 8119897924358505206}
   - component: {fileID: 6564649757144282667}
-  - component: {fileID: 7547768962701392672}
   m_Layer: 0
   m_Name: FireProjectile
   m_TagString: Untagged
@@ -9588,8 +9587,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 687196adea7952c4097bbff189eacc90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 10
-  _heal: 0
 --- !u!114 &6564649757144282667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9602,23 +9599,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bb2c0856e638ef42951865ddc56c122, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _safeTime: 1
-  _saveParticles: 0
-  _spriteRenderer: {fileID: 0}
   _particles: []
   _particlesWithPrewarm:
   - {fileID: 2318083265078791933}
   - {fileID: 2318083265078791935}
---- !u!114 &7547768962701392672
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8931204039091474862}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26cab903f08d83e46880e061ec650a78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxHealth: 100
+  _spriteRenderer: {fileID: 0}
+  _safeTime: 1
+  _saveParticles: 0

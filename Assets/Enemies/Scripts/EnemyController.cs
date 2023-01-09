@@ -4,7 +4,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class EnemyController : MonoBehaviour
 {
-	public ElementEnum Element => _element;
+	public ElementEnum Element { get; private set; }
+
+	public bool IsOrientRight { get; private set; }
 
 	[SerializeField] [Min(0)] private float _speed = 1f;
 
@@ -16,17 +18,16 @@ public class EnemyController : MonoBehaviour
 	private EnemyHealth _health;
 	private EnemyColor _enemyColor;
 
-	private ElementEnum _element;
 	private Color _color = Color.white;
 
 	private Vector3 _scale = Vector3.one;
 
-	private bool _isOrientRight;
 
 	public void Init(ElementEnum element, Color color)
 	{
-		_element = element;
+		Element = element;
 		_color = color;
+		_health.Init(Element);
 	}
 
 	protected virtual void Awake()
@@ -42,8 +43,6 @@ public class EnemyController : MonoBehaviour
 
 		TryGetComponent(out _enemyColor);
 		_enemyColor?.ChangeColor(_color);
-
-		_health.Init(_element);
 	}
 
 	protected virtual void Update()
@@ -80,15 +79,15 @@ public class EnemyController : MonoBehaviour
 
 	protected void SetOrientation()
 	{
-		if (_rb.velocity.x > 0 && _isOrientRight)
+		if (player.transform.position.x - transform.position.x > 0 && !IsOrientRight)
 		{
 			transform.localScale = new Vector3(_scale.x, _scale.y, _scale.z);
-			_isOrientRight = false;
+			IsOrientRight = true;
 		}
-		else if (_rb.velocity.x < 0 && !_isOrientRight)
+		else if (player.transform.position.x - transform.position.x < 0 && IsOrientRight)
 		{
 			transform.localScale = new Vector3(-_scale.x, _scale.y, _scale.z);
-			_isOrientRight = true;
+			IsOrientRight = false;
 		}
 	}
 }

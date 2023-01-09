@@ -160,9 +160,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f58109aff160437439d14894e15698dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 4
+  _speed: 0
   _timeToChangeDir: 0.5
-  _wobbleRatio: 0.9
+  _wobbleRatio: 0.7
   _lerpRatio: 5
 --- !u!114 &5350095693756624087
 MonoBehaviour:
@@ -190,7 +190,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 1
-  _animator: {fileID: 0}
+  _projectile: {fileID: 1634616408036753517, guid: a174739cce4da3f4b9e25128c5f6758b, type: 3}
+  _attack2Pos: {x: 0.25, y: -0.6, z: 0}
+  _attack2ProjectilesCount: 8
+  _attack3Pos: {x: 1, y: -0.5, z: 0}
+  _attack3ProjectilesCount: 6
+  _attack3MaxAngle: 30
 --- !u!114 &2257682425850777483
 MonoBehaviour:
   m_ObjectHideFlags: 0

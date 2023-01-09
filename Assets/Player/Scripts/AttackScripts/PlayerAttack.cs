@@ -1,11 +1,11 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(AttackVisual), typeof(PlayerHealth), typeof(Collider2D))]
+[RequireComponent(typeof(AttackVisual), typeof(Collider2D))]
 public class PlayerAttack : MonoBehaviour
 {
-	private float _damage = 0;
-	private int _heal = 0;
+	private uint _damage = 0;
+	private uint _heal = 0;
 
 	private ElementEnum _element;
 	private EnemyHealth _enemyHealth;
@@ -21,7 +21,7 @@ public class PlayerAttack : MonoBehaviour
 	private float _lifeTime = 0;
 	private float _curentLifeTime = 0;
 
-	public void Init(float damage, int heal, float speed, float rotationSpeed, float lifeTime, bool canBeDestroyed, ElementEnum elementEnum)
+	public void Init(uint damage, uint heal, float speed, float rotationSpeed, float lifeTime, bool canBeDestroyed, ElementEnum elementEnum)
 	{
 		_curentLifeTime = 0;
 		_damage = damage;
@@ -70,11 +70,11 @@ public class PlayerAttack : MonoBehaviour
 		}
 	}
 
-	protected virtual void TryHeal(Collider2D collider)
+	protected virtual void TryHealPlayer(Collider2D collider)
 	{
-		if (_heal > 0 && collider.tag == "Player")
+		if (_heal > 0)
 		{
-			Heal(collider);
+			HealPlayer();
 
 			if (_canBeDestroyed)
 			{
@@ -101,7 +101,7 @@ public class PlayerAttack : MonoBehaviour
 		_enemyHealth = null;
 	}
 
-	protected virtual void Heal(Collider2D collision)
+	protected virtual void HealPlayer()
 	{
 		_playerHealth?.Heal(_heal);
 	}

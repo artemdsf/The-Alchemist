@@ -1,21 +1,17 @@
 using UnityEngine;
+
 public class EnemyAttack : MonoBehaviour
 {
 	[Header("Attack properties")]
-	[SerializeField] [Min(0)] private int _damage = 1;
+	[SerializeField] protected uint damage = 1;
 
 	protected GameObject player;
 
 	private PlayerHealth _playerHealth;
 
-	public void Init(GameObject player)
-	{
-		this.player = player;
-	}
-
 	protected void HitPlayer()
 	{
-		_playerHealth.Damage(_damage);
+		_playerHealth?.Damage(damage);
 	}
 
 	private void Start()

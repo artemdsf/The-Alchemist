@@ -140,7 +140,6 @@ GameObject:
   - component: {fileID: 1364342233957629230}
   - component: {fileID: 7178414402128593867}
   - component: {fileID: 3476305167895394927}
-  - component: {fileID: 1017396690716582122}
   m_Layer: 0
   m_Name: RockProjectile
   m_TagString: Untagged
@@ -214,8 +213,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d80e558d43dc3284586628736547fe86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 10
-  _heal: 0
 --- !u!114 &3476305167895394927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,25 +225,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bb2c0856e638ef42951865ddc56c122, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _safeTime: 1
-  _saveParticles: 0
-  _spriteRenderer: {fileID: 7616469951726802981}
   _particles: []
   _particlesWithPrewarm:
   - {fileID: 4149018124301858182}
---- !u!114 &1017396690716582122
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2939922024847367609}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26cab903f08d83e46880e061ec650a78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxHealth: 100
+  _spriteRenderer: {fileID: 7616469951726802981}
+  _safeTime: 1
+  _saveParticles: 0
 --- !u!1 &4149018124282555622
 GameObject:
   m_ObjectHideFlags: 0

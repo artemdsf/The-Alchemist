@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 7213003530338986208}
   - component: {fileID: 8928160123367155308}
   - component: {fileID: 4737494109877871002}
-  - component: {fileID: 7250025241191259839}
   m_Layer: 0
   m_Name: WaterProjectile
   m_TagString: Untagged
@@ -99,26 +98,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bb2c0856e638ef42951865ddc56c122, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _safeTime: 1
-  _saveParticles: 1
-  _spriteRenderer: {fileID: 0}
   _particles:
   - {fileID: 5413959642398719729}
   _particlesWithPrewarm:
   - {fileID: 2639343345873901327}
---- !u!114 &7250025241191259839
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 791194100304710597}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26cab903f08d83e46880e061ec650a78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxHealth: 100
+  _spriteRenderer: {fileID: 0}
+  _safeTime: 1
+  _saveParticles: 1
 --- !u!1 &2639343345858858607
 GameObject:
   m_ObjectHideFlags: 0
