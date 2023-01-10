@@ -52,7 +52,7 @@ public class BatAttack : EnemyAttack
 
 	private bool CheckRange()
 	{
-		return (player.transform.position - (transform.position + (Vector3)_attackOffset)).magnitude < _attackRange;
+		return (Player.transform.position - (transform.position + (Vector3)_attackOffset)).magnitude < _attackRange;
 	}
 
 	private void OnDrawGizmos()

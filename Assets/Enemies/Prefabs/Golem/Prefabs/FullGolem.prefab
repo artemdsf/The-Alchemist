@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2115397382959728396}
   - component: {fileID: 7355983877685351927}
   - component: {fileID: 5350095693756624087}
+  - component: {fileID: 4897076865573390891}
   - component: {fileID: 4049601903852789748}
   - component: {fileID: 2257682425850777483}
   m_Layer: 0
@@ -160,7 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f58109aff160437439d14894e15698dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 0
+  _speed: 2
   _timeToChangeDir: 0.5
   _wobbleRatio: 0.7
   _lerpRatio: 5
@@ -177,6 +178,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 20
+--- !u!114 &4897076865573390891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1634616408036753517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6ee841439f85b944896006d0966725b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
 --- !u!114 &4049601903852789748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,11 +203,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eceb555eee4cb8e40b7a0f8254d74711, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 1
   _projectile: {fileID: 1634616408036753517, guid: a174739cce4da3f4b9e25128c5f6758b, type: 3}
   _attack2Pos: {x: 0.25, y: -0.6, z: 0}
+  _damage2: 5
   _attack2ProjectilesCount: 8
   _attack3Pos: {x: 1, y: -0.5, z: 0}
+  _damage3: 5
   _attack3ProjectilesCount: 6
   _attack3MaxAngle: 30
 --- !u!114 &2257682425850777483

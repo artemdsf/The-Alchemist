@@ -1400,6 +1400,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FullGolem
       objectReference: {fileID: 0}
+    - target: {fileID: 4049601903852789748, guid: e027e5c913ce5ec44bcaf9851f764978, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4106750960263567591, guid: e027e5c913ce5ec44bcaf9851f764978, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -1444,10 +1448,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7355983877685351927, guid: e027e5c913ce5ec44bcaf9851f764978, type: 3}
-      propertyPath: _speed
-      value: 2
+    - target: {fileID: 4897076865573390891, guid: e027e5c913ce5ec44bcaf9851f764978, type: 3}
+      propertyPath: damage
+      value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 4897076865573390891, guid: e027e5c913ce5ec44bcaf9851f764978, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5350095693756624087, guid: e027e5c913ce5ec44bcaf9851f764978, type: 3}
+      propertyPath: _maxHealth
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 7355983877685351927, guid: e027e5c913ce5ec44bcaf9851f764978, type: 3}
+      propertyPath: animators.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7355983877685351927, guid: e027e5c913ce5ec44bcaf9851f764978, type: 3}
+      propertyPath: animators.Array.data[0]
+      value: 
+      objectReference: {fileID: 9100000, guid: de73cdbd51b1a4e429a03c2fe0f351a1, type: 2}
+    - target: {fileID: 7355983877685351927, guid: e027e5c913ce5ec44bcaf9851f764978, type: 3}
+      propertyPath: animators.Array.data[1]
+      value: 
+      objectReference: {fileID: 9100000, guid: 006d284ae59a5a947ae44f27bb565865, type: 2}
+    - target: {fileID: 7355983877685351927, guid: e027e5c913ce5ec44bcaf9851f764978, type: 3}
+      propertyPath: animators.Array.data[2]
+      value: 
+      objectReference: {fileID: 9100000, guid: b6552c3aebf2795439614ec6931df748, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e027e5c913ce5ec44bcaf9851f764978, type: 3}
 --- !u!1001 &1692154689

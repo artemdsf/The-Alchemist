@@ -5,7 +5,7 @@ public class EnemyAttack : MonoBehaviour
 	[Header("Attack properties")]
 	[SerializeField] protected uint damage = 1;
 
-	protected GameObject player;
+	public GameObject Player { get; private set; }
 
 	private PlayerHealth _playerHealth;
 
@@ -16,7 +16,7 @@ public class EnemyAttack : MonoBehaviour
 
 	private void Start()
 	{
-		player = GameObject.FindGameObjectWithTag("Player");
-		_playerHealth = player.GetComponent<PlayerHealth>();
+		Player = GameObject.FindGameObjectWithTag("Player");
+		_playerHealth = Player.GetComponent<PlayerHealth>();
 	}
 }

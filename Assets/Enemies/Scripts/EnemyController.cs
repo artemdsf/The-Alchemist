@@ -4,11 +4,13 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class EnemyController : MonoBehaviour
 {
+	[SerializeField] [Min(0)] private float _speed = 1f;
+
+	public Animator _animator { get; private set; }
+
 	public ElementEnum Element { get; private set; }
 
 	public bool IsOrientRight { get; private set; }
-
-	[SerializeField] [Min(0)] private float _speed = 1f;
 
 	protected bool isAlive => !_health.IsDead;
 
