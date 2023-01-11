@@ -3,7 +3,6 @@ using UnityEngine;
 public class GolemAttackState : MonoBehaviour
 {
 	[Header("Projectile")]
-	[SerializeField] protected GameObject projectile;
 	[SerializeField] protected string projectilesPoolName;
 
 	[Header("Attack delay")]
