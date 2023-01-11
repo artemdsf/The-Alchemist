@@ -12,13 +12,20 @@ public class GolemController : EnemyController
 
 	public Animator Animator { get; private set; }
 	public GolemState CurentState { get; private set; }
+	public GolemState MaxState { get; private set; }
 
 	private Vector3 _lastDirection = Vector3.zero;
 	private Vector3 _curentDirection;
 	private float _curentTimeToChangeDir;
 	private bool _isAbleToMove = true;
 
-	public void SetState(GolemState state)
+	public void Init(GolemState maxState)
+	{
+		MaxState = maxState;
+		ChangeState(maxState);
+	}
+
+	public void ChangeState(GolemState state)
 	{
 		CurentState = state;
 		Animator.runtimeAnimatorController = animators[(int)state];
@@ -36,6 +43,9 @@ public class GolemController : EnemyController
 		}
 
 		Animator = GetComponent<Animator>();
+
+		Debug.LogError("To remove");
+		ChangeState(GolemState.B);
 	}
 
 	protected override void Update()
@@ -60,12 +70,22 @@ public class GolemController : EnemyController
 		if (!GameManager.IsGamePaused && isAlive && _isAbleToMove)
 		{
 			_lastDirection = Vector3.Lerp(_lastDirection, _curentDirection, Time.deltaTime * _lerpRatio);
-			Run(_lastDirection);
+			Move(_lastDirection);
 		}
 		else
 		{
-			Run(_curentDirection, 0);
+			Move(_curentDirection, 0);
 		}
+	}
+
+	protected void StopMove()
+	{
+		_isAbleToMove = false;
+	}
+
+	protected void StartMove()
+	{
+		_isAbleToMove = true;
 	}
 
 	private void OnDrawGizmos()

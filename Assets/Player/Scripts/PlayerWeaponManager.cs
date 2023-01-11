@@ -6,7 +6,8 @@ public class PlayerWeaponManager : MonoBehaviour
 	public float Damage => _damage;
 	public int Heal => _heal;
 
-	public ElementsManagerUI ElementsManager;
+	public ElementsManagerUI ElementsManager => _elementsManagerUI;
+	[SerializeField] private ElementsManagerUI _elementsManagerUI;
 
 	[SerializeField] private float _damage = 10;
 	[SerializeField] private int _heal = 1;
@@ -22,7 +23,7 @@ public class PlayerWeaponManager : MonoBehaviour
 	{
 		foreach (var item in _weapons)
 		{
-			item.Init(ElementsManager);
+			item.Init(_elementsManagerUI);
 		}
 
 		_elementsCount = Enum.GetNames(typeof(ElementEnum)).Length;
@@ -82,7 +83,7 @@ public class PlayerWeaponManager : MonoBehaviour
 		element %= _elementsCount;
 
 		_element = (ElementEnum)element;
-		ElementsManager.SelectElement(element);
+		_elementsManagerUI?.SelectElement(element);
 		_curentWeapon = _weapons[element];
 	}
 }

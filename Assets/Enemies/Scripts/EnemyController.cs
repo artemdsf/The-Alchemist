@@ -59,21 +59,21 @@ public class EnemyController : MonoBehaviour
 	{
 		if (!GameManager.IsGamePaused && isAlive)
 		{
-			Run(player.transform.position - transform.position);
+			Move(player.transform.position - transform.position);
 		}
 		else
 		{
-			Run(player.transform.position - transform.position, 0);
+			Move(player.transform.position - transform.position, 0);
 		}
 	}
 
-	protected void Run(Vector3 dir)
+	protected void Move(Vector3 dir)
 	{
 		dir = dir.normalized;
 		_rb.velocity = dir * _speed;
 	}
 
-	protected void Run(Vector3 pos, float speed)
+	protected void Move(Vector3 pos, float speed)
 	{
 		Vector2 dir = (pos - transform.position).normalized;
 		_rb.velocity = dir * speed;

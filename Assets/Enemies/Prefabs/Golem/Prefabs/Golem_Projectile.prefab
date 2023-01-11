@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2115397382959728396}
   - component: {fileID: 97394799004990802}
   m_Layer: 0
-  m_Name: Projectile
+  m_Name: Golem_Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -134,10 +134,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1634616408036753517}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7b5efb2bd71b7e4f8e9b2219e766742, type: 3}
+  m_Script: {fileID: 11500000, guid: f8043e36c15acec4eb63f0b0d80916b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 10
+  _speed: 1
   _lifeTime: 5
 --- !u!1 &4216871173663312798
 GameObject:

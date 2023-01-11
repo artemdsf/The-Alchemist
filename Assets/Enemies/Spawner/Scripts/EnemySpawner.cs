@@ -20,8 +20,7 @@ public class EnemySpawner : MonoBehaviour
 		_enemyController = GetComponent<EnemyController>();
 	}
 
-	public void Init(ElementEnum element, Color color, 
-		ObjectPool pool, float spawnRangeMult, float spawnTime)
+	public void Init(ElementEnum element, Color color, ObjectPool pool, float spawnRangeMult, float spawnTime)
 	{
 		_element = element;
 		_spawnRangeMult = spawnRangeMult;

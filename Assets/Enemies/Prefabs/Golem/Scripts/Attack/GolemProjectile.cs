@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
-public class ProjectileController : MonoBehaviour
+public class GolemProjectile : MonoBehaviour
 {
 	[SerializeField] private float _speed = 1f;
 	[SerializeField] private float _lifeTime = 5f;
@@ -11,6 +11,7 @@ public class ProjectileController : MonoBehaviour
 	public void Init(uint damage)
 	{
 		_damage = damage;
+		_curentLifeTime = 0;
 	}
 
 	private void Update()
@@ -35,6 +36,6 @@ public class ProjectileController : MonoBehaviour
 
 	private void Disactive()
 	{
-		Destroy(gameObject);
+		gameObject.SetActive(false);
 	}
 }

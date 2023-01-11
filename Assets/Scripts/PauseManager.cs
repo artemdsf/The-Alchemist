@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class HotKeysManager : MonoBehaviour
+public class PauseManager : MonoBehaviour
 {
 	[SerializeField] private GameObject _escapeMenu;
 	[SerializeField] private GameObject _UI;
 
-	public static HotKeysManager Instance;
+	public static PauseManager Instance;
 
 	private void Awake()
 	{
