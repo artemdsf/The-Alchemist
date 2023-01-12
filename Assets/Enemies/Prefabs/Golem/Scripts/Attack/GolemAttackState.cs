@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class GolemAttackState : MonoBehaviour
+public abstract class GolemAttackState : MonoBehaviour
 {
 	[Header("Projectile")]
 	[SerializeField] protected string projectilesPoolName;
 
 	[Header("Attack delay")]
-	[SerializeField] protected float maxAttackDelay = 1;
-	protected float attackDelay;
+	[SerializeField] protected float attackDelay = 1;
+	protected float currentAttackDelay;
 
 	protected GolemController controller;
 	protected Animator animator;
@@ -27,14 +27,13 @@ public class GolemAttackState : MonoBehaviour
 		animator = controller.Animator;
 	}
 
-	protected void InstProjectile(Vector3 pos, Quaternion quaternion, uint damage)
+	protected GameObject InstAttackObject(Vector3 pos, Quaternion quaternion)
 	{
 		GameObject gameObject = _pool.GetPooledObject();
 		gameObject.SetActive(true);
 		gameObject.transform.position = pos;
 		gameObject.transform.rotation = quaternion;
-		gameObject.TryGetComponent(out GolemProjectile projectile);
-		projectile?.Init(damage);
+		return gameObject;
 	}
 
 	protected Vector3 InvertVectorByX(Vector3 vector)

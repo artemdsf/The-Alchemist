@@ -11,10 +11,23 @@ public class GolemAttackA : GolemAttackState
 	[SerializeField] private Vector3 _attack3Pos;
 	[SerializeField] private uint _damage3 = 5;
 	[SerializeField] private uint _attack3ProjectilesCount = 4;
-	[SerializeField] [Min(0)] private float _attack3MaxAngle = 30f;
+	[SerializeField] [Min(0)] private float _attack3MaxAngle = 30;
 	[SerializeField] private string _attack3Name = "Attack 3";
+	[Header("Ability")]
+	[SerializeField] private float _abilityDelay = 10;
+	[SerializeField] private string _abilityName = "Ability";
+	private float _currentAbilityDelay = 0;
+
+	private const GolemState GOLEM_STATE = GolemState.A;
 
 	private const int CIRCLE_DEGREES = 360;
+
+	public void Init()
+	{
+		controller.ResetSpeed();
+		currentAttackDelay = 0;
+		_currentAbilityDelay = 0;
+	}
 
 	//Circular attack
 	protected void Attack2A()
@@ -56,16 +69,27 @@ public class GolemAttackA : GolemAttackState
 		}
 	}
 
+	protected void AbilityA()
+	{
+		animator.SetTrigger(_abilityName);
+	}
+
 	private void Update()
 	{
-		if (!GameManager.IsGamePaused && controller.CurentState == GolemState.A)
+		if (!GameManager.IsGamePaused && controller.CurentState == GOLEM_STATE)
 		{
-			attackDelay += Time.deltaTime;
+			currentAttackDelay += Time.deltaTime;
+			_currentAbilityDelay += Time.deltaTime;
 
-			if (attackDelay > maxAttackDelay)
+			if (currentAttackDelay > attackDelay)
 			{
 				Attack();
-				attackDelay = 0;
+				currentAttackDelay = 0;
+			}
+			if (_currentAbilityDelay > _abilityDelay)
+			{
+				AbilityA();
+				_currentAbilityDelay = 0;
 			}
 		}
 	}
@@ -89,6 +113,13 @@ public class GolemAttackA : GolemAttackState
 			animator.SetTrigger(_attack3Name);
 			animator.ResetTrigger(_attack2Name);
 		}
+	}
+
+	private void InstProjectile(Vector3 pos, Quaternion quaternion, uint damage)
+	{
+		GameObject gameObject = InstAttackObject(pos, quaternion);
+		gameObject.TryGetComponent(out GolemProjectile projectile);
+		projectile?.Init(damage);
 	}
 
 	private void OnDrawGizmos()

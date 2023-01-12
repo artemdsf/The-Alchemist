@@ -546,9 +546,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 519420032}
+  - component: {fileID: 519420031}
   - component: {fileID: 519420030}
   - component: {fileID: 519420029}
-  - component: {fileID: 519420031}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2001,6 +2001,10 @@ PrefabInstance:
       propertyPath: _damage
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 3033724374099595550, guid: d2d9361447373a745ad536a1cc4a776d, type: 3}
+      propertyPath: _lifeTime
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4230392994051175175, guid: d2d9361447373a745ad536a1cc4a776d, type: 3}
       propertyPath: _pool
       value: 
@@ -2389,9 +2393,29 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -6385578442390595800, guid: e027e5c913ce5ec44bcaf9851f764978, type: 3}
+      propertyPath: _offset
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385578442390595800, guid: e027e5c913ce5ec44bcaf9851f764978, type: 3}
+      propertyPath: _runTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385578442390595800, guid: e027e5c913ce5ec44bcaf9851f764978, type: 3}
+      propertyPath: _runSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -6385578442390595800, guid: e027e5c913ce5ec44bcaf9851f764978, type: 3}
+      propertyPath: _delayBetweenEpls
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 1634616408036753517, guid: e027e5c913ce5ec44bcaf9851f764978, type: 3}
       propertyPath: m_Name
       value: FullGolem
+      objectReference: {fileID: 0}
+    - target: {fileID: 4049601903852789748, guid: e027e5c913ce5ec44bcaf9851f764978, type: 3}
+      propertyPath: _abilityDelay
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4106750960263567591, guid: e027e5c913ce5ec44bcaf9851f764978, type: 3}
       propertyPath: m_RootOrder
@@ -2437,6 +2461,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6834896945953759394, guid: e027e5c913ce5ec44bcaf9851f764978, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 006d284ae59a5a947ae44f27bb565865, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e027e5c913ce5ec44bcaf9851f764978, type: 3}
 --- !u!1001 &2096057695

@@ -14,9 +14,13 @@ public class GolemController : EnemyController
 	public GolemState CurentState { get; private set; }
 	public GolemState MaxState { get; private set; }
 
+	private GolemAttackA golemAttackA;
+	private GolemAttackB golemAttackB;
+	//private GolemAttackC golemAttackC;
+
 	private Vector3 _lastDirection = Vector3.zero;
-	private Vector3 _curentDirection;
-	private float _curentTimeToChangeDir;
+	private Vector3 _currentDirection;
+	private float _currentTimeToChangeDir;
 	private bool _isAbleToMove = true;
 
 	public void Init(GolemState maxState)
@@ -29,13 +33,33 @@ public class GolemController : EnemyController
 	{
 		CurentState = state;
 		Animator.runtimeAnimatorController = animators[(int)state];
+
+		switch (state)
+		{
+			case GolemState.A:
+				golemAttackA.Init();
+				break;
+			case GolemState.B:
+				golemAttackB.Init();
+				break;
+			case GolemState.C:
+				break;
+		}
+	}
+
+	protected override void Start()
+	{
+		base.Start();
+
+		Debug.LogError("To remove");
+		ChangeState(GolemState.B);
 	}
 
 	protected override void Awake()
 	{
 		base.Awake();
 
-		_curentTimeToChangeDir = _timeToChangeDir;
+		_currentTimeToChangeDir = _timeToChangeDir;
 
 		if (animators.Length != System.Enum.GetNames(typeof(GolemState)).Length)
 		{
@@ -44,8 +68,9 @@ public class GolemController : EnemyController
 
 		Animator = GetComponent<Animator>();
 
-		Debug.LogError("To remove");
-		ChangeState(GolemState.B);
+		golemAttackA = GetComponent<GolemAttackA>();
+		golemAttackB = GetComponent<GolemAttackB>();
+
 	}
 
 	protected override void Update()
@@ -54,14 +79,14 @@ public class GolemController : EnemyController
 
 		if (!GameManager.IsGamePaused && isAlive)
 		{
-			_curentTimeToChangeDir += Time.deltaTime;
+			_currentTimeToChangeDir += Time.deltaTime;
 		}
 
-		if (_curentTimeToChangeDir > _timeToChangeDir)
+		if (_currentTimeToChangeDir > _timeToChangeDir)
 		{
-			_curentTimeToChangeDir = 0;
-			_lastDirection = _curentDirection;
-			_curentDirection = GetRandomDirection();
+			_currentTimeToChangeDir = 0;
+			_lastDirection = _currentDirection;
+			_currentDirection = GetRandomDirection();
 		}
 	}
 
@@ -69,12 +94,12 @@ public class GolemController : EnemyController
 	{
 		if (!GameManager.IsGamePaused && isAlive && _isAbleToMove)
 		{
-			_lastDirection = Vector3.Lerp(_lastDirection, _curentDirection, Time.deltaTime * _lerpRatio);
+			_lastDirection = Vector3.Lerp(_lastDirection, _currentDirection, Time.deltaTime * _lerpRatio);
 			Move(_lastDirection);
 		}
 		else
 		{
-			Move(_curentDirection, 0);
+			Move(_currentDirection, 0);
 		}
 	}
 
@@ -90,7 +115,7 @@ public class GolemController : EnemyController
 
 	private void OnDrawGizmos()
 	{
-		Gizmos.DrawLine(transform.position, transform.position + _curentDirection);
+		Gizmos.DrawLine(transform.position, transform.position + _currentDirection);
 	}
 
 	private Vector3 GetRandomDirection()

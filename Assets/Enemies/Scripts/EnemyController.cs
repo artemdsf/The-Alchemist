@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
 	[SerializeField] [Min(0)] private float _speed = 1f;
+	private float _currentSpeed = 1f;
 
 	public Animator _animator { get; private set; }
 
@@ -23,7 +24,15 @@ public class EnemyController : MonoBehaviour
 	private Color _color = Color.white;
 
 	private Vector3 _scale = Vector3.one;
+	public void ResetSpeed()
+	{
+		_currentSpeed = _speed;
+	}
 
+	public void SetSpeed(float speed)
+	{
+		_currentSpeed = speed;
+	}
 
 	public void Init(ElementEnum element, Color color)
 	{
@@ -34,6 +43,7 @@ public class EnemyController : MonoBehaviour
 
 	protected virtual void Awake()
 	{
+		_currentSpeed = _speed;
 		_health = GetComponent<EnemyHealth>();
 		_rb = GetComponent<Rigidbody2D>();
 		_scale = transform.localScale;
@@ -70,7 +80,7 @@ public class EnemyController : MonoBehaviour
 	protected void Move(Vector3 dir)
 	{
 		dir = dir.normalized;
-		_rb.velocity = dir * _speed;
+		_rb.velocity = dir * _currentSpeed;
 	}
 
 	protected void Move(Vector3 pos, float speed)
