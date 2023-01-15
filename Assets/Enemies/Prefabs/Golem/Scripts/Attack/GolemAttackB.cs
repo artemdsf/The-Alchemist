@@ -14,14 +14,23 @@ public class GolemAttackB : GolemAttackState
 	[SerializeField] private float _runSpeed;
 	[SerializeField] private float _runTime;
 	[SerializeField] private string _runName = "Run";
+	[Header("Ability")]
+	[SerializeField] private string _abilityName = "Ability";
+	private GolemHealth _health;
 	private bool _isAlreadyAttack = false;
 
 	private const GolemState GOLEM_STATE = GolemState.B;
 
-	public void Init()
+	public override void Init()
 	{
-		currentAttackDelay = 0;
+		base.Init();
 		ResetAttack();
+	}
+
+	protected override void Awake()
+	{
+		base.Awake();
+		_health = GetComponent<GolemHealth>();
 	}
 
 	protected void ResetAttack()
@@ -40,13 +49,23 @@ public class GolemAttackB : GolemAttackState
 		if (!GameManager.IsGamePaused && controller.CurentState == GOLEM_STATE && !_isAlreadyAttack)
 		{
 			currentAttackDelay += Time.deltaTime;
-
-			if (currentAttackDelay > attackDelay)
+			if (_health.IsAbleToRebirth)
+			{
+				Debug.Log($"Rebirth {_health.IsAbleToRebirth}");
+				Rebirth();
+			}
+			else if (currentAttackDelay > attackDelay)
 			{
 				StartCoroutine(Attack());
 				currentAttackDelay = 0;
 			}
 		}
+	}
+
+	private void Rebirth()
+	{
+		animator.SetTrigger(_abilityName);
+		_health.Rebirth();
 	}
 
 	private void StartRunning()
@@ -56,6 +75,7 @@ public class GolemAttackB : GolemAttackState
 			_isAlreadyAttack = true;
 			controller.SetSpeed(_runSpeed);
 			animator.SetBool(_runName, true);
+			_health.DisactiveHitAnim();
 		}
 	}
 
@@ -65,6 +85,8 @@ public class GolemAttackB : GolemAttackState
 
 		if (controller.CurentState == GOLEM_STATE)
 			animator.SetBool(_runName, false);
+
+		_health.ActiveHitAnim();
 	}
 
 	private void InstExplosion(Vector3 pos, Quaternion quaternion, uint damage)

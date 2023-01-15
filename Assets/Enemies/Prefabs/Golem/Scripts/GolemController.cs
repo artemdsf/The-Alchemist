@@ -9,23 +9,26 @@ public class GolemController : EnemyController
 	[SerializeField] [Range(0, 1)] private float _wobbleRatio;
 	[SerializeField] private float _lerpRatio;
 	[SerializeField] private AnimatorController[] animators;
-
 	public Animator Animator { get; private set; }
 	public GolemState CurentState { get; private set; }
 	public GolemState MaxState { get; private set; }
+	public int RebirthsCount { get; private set; }
 
-	private GolemAttackA golemAttackA;
-	private GolemAttackB golemAttackB;
-	//private GolemAttackC golemAttackC;
+	[SerializeField] private GolemAttackA _golemAttackA;
+	[SerializeField] private GolemAttackB _golemAttackB;
+	[SerializeField] private GolemAttackC _golemAttackC;
 
+	[SerializeField] private GolemHealth _golemHealth;
 	private Vector3 _lastDirection = Vector3.zero;
 	private Vector3 _currentDirection;
 	private float _currentTimeToChangeDir;
 	private bool _isAbleToMove = true;
 
-	public void Init(GolemState maxState)
+	public void Init(GolemState maxState, int rebirthCount)
 	{
+		RebirthsCount = rebirthCount;
 		MaxState = maxState;
+		_golemHealth.Init(rebirthCount);
 		ChangeState(maxState);
 	}
 
@@ -37,12 +40,13 @@ public class GolemController : EnemyController
 		switch (state)
 		{
 			case GolemState.A:
-				golemAttackA.Init();
+				_golemAttackA.Init();
 				break;
 			case GolemState.B:
-				golemAttackB.Init();
+				_golemAttackB.Init();
 				break;
 			case GolemState.C:
+				_golemAttackC.Init();
 				break;
 		}
 	}
@@ -52,7 +56,7 @@ public class GolemController : EnemyController
 		base.Start();
 
 		Debug.LogError("To remove");
-		ChangeState(GolemState.B);
+		Init(GolemState.C, 2);
 	}
 
 	protected override void Awake()
@@ -67,10 +71,6 @@ public class GolemController : EnemyController
 		}
 
 		Animator = GetComponent<Animator>();
-
-		golemAttackA = GetComponent<GolemAttackA>();
-		golemAttackB = GetComponent<GolemAttackB>();
-
 	}
 
 	protected override void Update()

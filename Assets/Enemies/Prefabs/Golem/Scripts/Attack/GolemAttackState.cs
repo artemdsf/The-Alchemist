@@ -2,8 +2,8 @@ using UnityEngine;
 
 public abstract class GolemAttackState : MonoBehaviour
 {
-	[Header("Projectile")]
-	[SerializeField] protected string projectilesPoolName;
+	[Header("Attack")]
+	[SerializeField] protected string attackPoolName;
 
 	[Header("Attack delay")]
 	[SerializeField] protected float attackDelay = 1;
@@ -15,10 +15,15 @@ public abstract class GolemAttackState : MonoBehaviour
 
 	private ObjectPool _pool;
 
-	private void Awake()
+	public virtual void Init()
+	{
+		currentAttackDelay = 0;
+	}
+
+	protected virtual void Awake()
 	{
 		controller = GetComponent<GolemController>();
-		_pool = GameObject.Find(projectilesPoolName)?.GetComponent<ObjectPool>();
+		_pool = GameObject.Find(attackPoolName)?.GetComponent<ObjectPool>();
 	}
 
 	private void Start()

@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 4897076865573390891}
   - component: {fileID: 4049601903852789748}
   - component: {fileID: -6385578442390595800}
+  - component: {fileID: 1459603285011988722}
   - component: {fileID: 2257682425850777483}
   m_Layer: 0
   m_Name: FullGolem
@@ -103,7 +104,7 @@ Animator:
   m_GameObject: {fileID: 1634616408036753517}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 006d284ae59a5a947ae44f27bb565865, type: 2}
+  m_Controller: {fileID: 9100000, guid: b6552c3aebf2795439614ec6931df748, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -170,6 +171,10 @@ MonoBehaviour:
   - {fileID: 9100000, guid: de73cdbd51b1a4e429a03c2fe0f351a1, type: 2}
   - {fileID: 9100000, guid: 006d284ae59a5a947ae44f27bb565865, type: 2}
   - {fileID: 9100000, guid: b6552c3aebf2795439614ec6931df748, type: 2}
+  _golemAttackA: {fileID: 4049601903852789748}
+  _golemAttackB: {fileID: -6385578442390595800}
+  _golemAttackC: {fileID: 1459603285011988722}
+  _golemHealth: {fileID: 5350095693756624087}
 --- !u!114 &5350095693756624087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,7 +187,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc51923f261ed094c8c46ffcc5a678ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 300
+  maxHealth: 300
+  _startArmor: 0
+  HasImmuneToDamage: 0
 --- !u!114 &4897076865573390891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,9 +216,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eceb555eee4cb8e40b7a0f8254d74711, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 0}
-  projectilesPoolName: GolemProjsPool
-  maxAttackDelay: 1
+  attackPoolName: GolemProjsPool
+  attackDelay: 1
   _attack2Pos: {x: 0.25, y: -0.6, z: 0}
   _damage2: 5
   _attack2ProjectilesCount: 8
@@ -221,6 +227,8 @@ MonoBehaviour:
   _attack3ProjectilesCount: 6
   _attack3MaxAngle: 30
   _attack3Name: Attack 3
+  _abilityDelay: 3
+  _abilityName: Ability
 --- !u!114 &-6385578442390595800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,13 +241,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad1383ae75f138347af316591915514f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 8687060524791650890, guid: 607c164f16f7e6a47959c48545cca63d, type: 3}
-  projectilesPoolName: GolemExplPool
-  maxAttackDelay: 1
+  attackPoolName: GolemExplPool
+  attackDelay: 1
   _attack1Pos: {x: 0, y: 0, z: 0}
-  _damage1: 5
-  _attack1ProjectilesCount: 8
-  _attack1Name: Attack
+  _damage: 5
+  _attackProjectilesCount: 8
+  _attackName: Attack
+  _offset: 4
+  _delayBetweenEpls: 0.15
+  _runSpeed: 10
+  _runTime: 1
+  _runName: Run
+  _armor: 20
+  _abilityName: Ability
+--- !u!114 &1459603285011988722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1634616408036753517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be47f29b09571cd46b547dd243ab8064, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackPoolName: 
+  attackDelay: 1
 --- !u!114 &2257682425850777483
 MonoBehaviour:
   m_ObjectHideFlags: 0

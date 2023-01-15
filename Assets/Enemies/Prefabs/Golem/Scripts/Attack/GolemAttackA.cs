@@ -22,11 +22,11 @@ public class GolemAttackA : GolemAttackState
 
 	private const int CIRCLE_DEGREES = 360;
 
-	public void Init()
+	public override void Init()
 	{
-		controller.ResetSpeed();
-		currentAttackDelay = 0;
+		base.Init();
 		_currentAbilityDelay = 0;
+		controller.ResetSpeed();
 	}
 
 	//Circular attack

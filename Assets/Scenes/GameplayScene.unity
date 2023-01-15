@@ -2393,29 +2393,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -6385578442390595800, guid: e027e5c913ce5ec44bcaf9851f764978, type: 3}
-      propertyPath: _offset
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: -6385578442390595800, guid: e027e5c913ce5ec44bcaf9851f764978, type: 3}
-      propertyPath: _runTime
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -6385578442390595800, guid: e027e5c913ce5ec44bcaf9851f764978, type: 3}
-      propertyPath: _runSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: -6385578442390595800, guid: e027e5c913ce5ec44bcaf9851f764978, type: 3}
-      propertyPath: _delayBetweenEpls
-      value: 0.15
-      objectReference: {fileID: 0}
+    - target: {fileID: 1459603285011988722, guid: e027e5c913ce5ec44bcaf9851f764978, type: 3}
+      propertyPath: _health
+      value: 
+      objectReference: {fileID: 2036530330}
     - target: {fileID: 1634616408036753517, guid: e027e5c913ce5ec44bcaf9851f764978, type: 3}
       propertyPath: m_Name
       value: FullGolem
-      objectReference: {fileID: 0}
-    - target: {fileID: 4049601903852789748, guid: e027e5c913ce5ec44bcaf9851f764978, type: 3}
-      propertyPath: _abilityDelay
-      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4106750960263567591, guid: e027e5c913ce5ec44bcaf9851f764978, type: 3}
       propertyPath: m_RootOrder
@@ -2464,9 +2448,20 @@ PrefabInstance:
     - target: {fileID: 6834896945953759394, guid: e027e5c913ce5ec44bcaf9851f764978, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 006d284ae59a5a947ae44f27bb565865, type: 2}
+      objectReference: {fileID: 9100000, guid: b6552c3aebf2795439614ec6931df748, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e027e5c913ce5ec44bcaf9851f764978, type: 3}
+--- !u!114 &2036530330 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5350095693756624087, guid: e027e5c913ce5ec44bcaf9851f764978, type: 3}
+  m_PrefabInstance: {fileID: 2036530324}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc51923f261ed094c8c46ffcc5a678ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2096057695
 PrefabInstance:
   m_ObjectHideFlags: 0

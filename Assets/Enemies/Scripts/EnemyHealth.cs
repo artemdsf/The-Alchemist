@@ -2,22 +2,38 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    [SerializeField] private float _maxHealth = 20;
-	
+    [SerializeField] protected float maxHealth = 20;
+    [SerializeField] private float _startArmor = 0;
+
 	public bool IsDead { get; private set; }
+
+	protected float health;
+	protected float armor;
 
 	protected Animator animator;
 	private Collider2D _collider;
 
 	private ElementEnum _element;
-	
-	private float _health;
 
 	public virtual void TakeDamage(ElementEnum element, float dmg)
 	{
-		_health -= dmg * GameManager.GetDamageMult(element, _element);
+		dmg *= GameManager.GetDamageMult(element, _element);
 
-		if (_health <= 0 && !IsDead)
+		if (armor > 0)
+		{
+			armor -= dmg;
+			if (armor <= 0)
+			{
+				armor = 0;
+				BreakArmor();
+			}
+		}
+		else
+		{
+			health -= dmg;
+		}
+
+		if (health <= 0 && !IsDead)
 		{
 			StartDeath();
 		}
@@ -26,7 +42,8 @@ public class EnemyHealth : MonoBehaviour
 	public void Init(ElementEnum element)
 	{
 		_element = element;
-		_health = _maxHealth;
+		health = maxHealth;
+		armor = _startArmor;
 		_collider.enabled = true;
 		IsDead = false;
 	}
@@ -40,6 +57,11 @@ public class EnemyHealth : MonoBehaviour
 	{
 		_collider = GetComponent<Collider2D>();
 		animator = GetComponent<Animator>();
+	}
+
+	private void BreakArmor()
+	{
+		animator.SetTrigger("Break");
 	}
 
 	private void StartDeath()
