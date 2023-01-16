@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    [SerializeField] protected float maxHealth = 20;
-    [SerializeField] private float _startArmor = 0;
+	[SerializeField] protected float maxHealth = 20;
 
 	public bool IsDead { get; private set; }
 
@@ -20,21 +19,18 @@ public class EnemyHealth : MonoBehaviour
 		dmg *= GameManager.GetDamageMult(element, _element);
 
 		if (armor > 0)
-		{
 			armor -= dmg;
-			if (armor <= 0)
-			{
-				armor = 0;
-				BreakArmor();
-			}
-		}
 		else
-		{
 			health -= dmg;
-		}
 
+		if (armor <= 0)
+		{
+			armor = 0;
+			BreakArmor();
+		}
 		if (health <= 0 && !IsDead)
 		{
+			health = 0;
 			StartDeath();
 		}
 	}
@@ -43,7 +39,6 @@ public class EnemyHealth : MonoBehaviour
 	{
 		_element = element;
 		health = maxHealth;
-		armor = _startArmor;
 		_collider.enabled = true;
 		IsDead = false;
 	}

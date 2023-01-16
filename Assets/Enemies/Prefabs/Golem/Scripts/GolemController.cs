@@ -19,6 +19,7 @@ public class GolemController : EnemyController
 	[SerializeField] private GolemAttackC _golemAttackC;
 
 	[SerializeField] private GolemHealth _golemHealth;
+	
 	private Vector3 _lastDirection = Vector3.zero;
 	private Vector3 _currentDirection;
 	private float _currentTimeToChangeDir;

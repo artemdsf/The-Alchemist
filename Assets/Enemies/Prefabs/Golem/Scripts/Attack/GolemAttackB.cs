@@ -25,6 +25,7 @@ public class GolemAttackB : GolemAttackState
 	{
 		base.Init();
 		ResetAttack();
+		currentAttackDelay = 0;
 	}
 
 	protected override void Awake()
@@ -33,13 +34,13 @@ public class GolemAttackB : GolemAttackState
 		_health = GetComponent<GolemHealth>();
 	}
 
-	protected void ResetAttack()
+	private void ResetAttack()
 	{
 		_isAlreadyAttack = false;
 		StopRunning();
 	}
 
-	protected void Attack1B()
+	private void Attack1B()
 	{
 		StartCoroutine(AttackCoroutine());
 	}
@@ -51,7 +52,6 @@ public class GolemAttackB : GolemAttackState
 			currentAttackDelay += Time.deltaTime;
 			if (_health.IsAbleToRebirth)
 			{
-				Debug.Log($"Rebirth {_health.IsAbleToRebirth}");
 				Rebirth();
 			}
 			else if (currentAttackDelay > attackDelay)

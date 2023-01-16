@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(EnemyColor), typeof(EnemyHealth), typeof(EnemyAttack))]
@@ -24,14 +25,39 @@ public class EnemyController : MonoBehaviour
 	private Color _color = Color.white;
 
 	private Vector3 _scale = Vector3.one;
+
+	private float _speedError = 0.01f;
+	private bool _isSpeedReseted;
+
 	public void ResetSpeed()
 	{
+		_currentSpeed = _speed;
+	}
+
+	public IEnumerator ResetSpeed(float lerpRatio)
+	{
+		_isSpeedReseted = true;
+		while (Mathf.Abs(1 - _speed / _currentSpeed) > _speedError)
+		{
+			_currentSpeed = Mathf.Lerp(_currentSpeed, _speed, lerpRatio * Time.deltaTime);
+			yield return null;
+		}
 		_currentSpeed = _speed;
 	}
 
 	public void SetSpeed(float speed)
 	{
 		_currentSpeed = speed;
+	}
+
+	public IEnumerator SetSpeed(float speed, float lerpRatio)
+	{
+		_isSpeedReseted = false;
+		while (!_isSpeedReseted)
+		{
+			_currentSpeed = Mathf.Lerp(_currentSpeed, speed, lerpRatio * Time.deltaTime);
+			yield return null;
+		}
 	}
 
 	public void Init(ElementEnum element, Color color)

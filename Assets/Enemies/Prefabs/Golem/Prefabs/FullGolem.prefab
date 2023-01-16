@@ -188,8 +188,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 300
-  _startArmor: 0
-  HasImmuneToDamage: 0
 --- !u!114 &4897076865573390891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,7 +250,6 @@ MonoBehaviour:
   _runSpeed: 10
   _runTime: 1
   _runName: Run
-  _armor: 20
   _abilityName: Ability
 --- !u!114 &1459603285011988722
 MonoBehaviour:
@@ -266,8 +263,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be47f29b09571cd46b547dd243ab8064, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackPoolName: 
+  attackPoolName: GolemProjsPool
   attackDelay: 1
+  _abilityName: Ability
+  _attack1Name: Attack
+  _damage1: 20
+  _attackThornsCount: 8
+  _offset: 4
+  _attack1PoolName: GolemThornsPool
+  _attack2Name: Attack 2
+  _damage2: 5
+  _slideSpeed: 25
+  _slideLerpRatio: 15
+  _attack3Name: Attack 3
+  _armor: 20
+  _health: {fileID: 5350095693756624087}
 --- !u!114 &2257682425850777483
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -26,7 +26,7 @@ public abstract class GolemAttackState : MonoBehaviour
 		_pool = GameObject.Find(attackPoolName)?.GetComponent<ObjectPool>();
 	}
 
-	private void Start()
+	protected virtual void Start()
 	{
 		player = GetComponent<GolemAttack>().Player;
 		animator = controller.Animator;
@@ -35,6 +35,15 @@ public abstract class GolemAttackState : MonoBehaviour
 	protected GameObject InstAttackObject(Vector3 pos, Quaternion quaternion)
 	{
 		GameObject gameObject = _pool.GetPooledObject();
+		gameObject.SetActive(true);
+		gameObject.transform.position = pos;
+		gameObject.transform.rotation = quaternion;
+		return gameObject;
+	}
+
+	protected GameObject InstAttackObject(Vector3 pos, Quaternion quaternion, ObjectPool pool)
+	{
+		GameObject gameObject = pool.GetPooledObject();
 		gameObject.SetActive(true);
 		gameObject.transform.position = pos;
 		gameObject.transform.rotation = quaternion;

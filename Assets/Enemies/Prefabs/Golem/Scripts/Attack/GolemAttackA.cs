@@ -30,7 +30,7 @@ public class GolemAttackA : GolemAttackState
 	}
 
 	//Circular attack
-	protected void Attack2A()
+	private void Attack2A()
 	{
 		float startAngle = Random.Range(0, CIRCLE_DEGREES);
 		for (int i = 0; i < _attack2ProjectilesCount; i++)
@@ -45,7 +45,7 @@ public class GolemAttackA : GolemAttackState
 	}
 
 	//Directed attack
-	protected void Attack3A()
+	private void Attack3A()
 	{
 		for (int i = 0; i < _attack3ProjectilesCount; i++)
 		{
@@ -69,7 +69,7 @@ public class GolemAttackA : GolemAttackState
 		}
 	}
 
-	protected void AbilityA()
+	private void AbilityA()
 	{
 		animator.SetTrigger(_abilityName);
 	}
