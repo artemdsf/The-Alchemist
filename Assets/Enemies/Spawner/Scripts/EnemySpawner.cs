@@ -3,44 +3,48 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D), typeof(EnemyController))]
 public class EnemySpawner : MonoBehaviour
 {
-	private EnemyController _enemyController;
-	private GameObject _player;
-	private ObjectPool _pool;
-	private ElementEnum _element;
-	private Color _color;
+	[SerializeField] private string _bossPoolName;
+	[SerializeField] private ElementEnum _element;
+	[SerializeField] private Color _color;
+	[SerializeField] private float _spawnTime = 1;
+	[SerializeField] private float _spawnRangeMult = 2.3f;
+	[SerializeField] private Color _gizmosColor;
 
-	private float _spawnRangeMult;
+	[SerializeField] private GameObject _player;
+	private EnemyController _enemyController;
+	private ObjectPool _pool;
+	private ObjectPool _bossPool;
+
 	private float _spawnRange;
-	private float _spawnTime;
 	private float _curentTime;
 
 	private void Awake()
 	{
 		_player = GameObject.FindGameObjectWithTag("Player");
 		_enemyController = GetComponent<EnemyController>();
+		_spawnRange = Camera.main.orthographicSize * _spawnRangeMult;
 	}
 
-	public void Init(ElementEnum element, Color color, ObjectPool pool, float spawnRangeMult, float spawnTime)
+	private void Start()
+	{
+		GameObject.Find(_bossPoolName).TryGetComponent(out _bossPool);
+	}
+
+	public void Init(ElementEnum element, Color color, ObjectPool pool)
 	{
 		_element = element;
-		_spawnRangeMult = spawnRangeMult;
-		_spawnTime = spawnTime;
-		_pool = pool;
 		_color = color;
+		_pool = pool;
 
 		_curentTime = 0;
 
 		_enemyController.Init(_element, _color);
-
-		_spawnRange = Camera.main.orthographicSize * _spawnRangeMult;
 	}
 
 	private void Update()
 	{
-		if (!GameManager.IsGamePaused)
-		{
-			CheckSpawnEnemy();
-		}
+		//CheckSpawnEnemy();
+		TrySpawnBoss();
 	}
 
 	private void CheckSpawnEnemy()
@@ -50,6 +54,22 @@ public class EnemySpawner : MonoBehaviour
 		{
 			SpawnEnemy();
 			_curentTime = 0;
+		}
+	}
+
+	private void TrySpawnBoss()
+	{
+		if (_bossPool.GetActiveObjects() == 0)
+		{
+			Vector3 distVector = Random.insideUnitCircle.normalized * _spawnRange;
+			Vector3 pos = _player.transform.position + distVector;
+
+			GameObject gameObject = _bossPool.GetPooledObject();
+			gameObject.SetActive(true);
+			gameObject.transform.position = pos;
+			gameObject.TryGetComponent(out GolemController golemController);
+			golemController.Init(GolemState.C, 1);
+			golemController.Init(_element, _color);
 		}
 	}
 
@@ -63,5 +83,12 @@ public class EnemySpawner : MonoBehaviour
 		gameObject.transform.position = pos;
 		gameObject.TryGetComponent(out EnemyController enemyController);
 		enemyController.Init(_element, _color);
+	}
+
+	private void OnDrawGizmos()
+	{
+		Gizmos.color = _gizmosColor;
+		float _spawnRange = Camera.main.orthographicSize * _spawnRangeMult;
+		Gizmos.DrawWireSphere(_player.transform.position, _spawnRange);
 	}
 }

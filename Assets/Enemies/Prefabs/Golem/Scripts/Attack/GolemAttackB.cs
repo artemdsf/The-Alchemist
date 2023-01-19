@@ -5,8 +5,8 @@ public class GolemAttackB : GolemAttackState
 {
 	[Header("Attack 1")]
 	[SerializeField] private Vector3 _attack1Pos;
-	[SerializeField] private uint _damage = 5;
-	[SerializeField] private uint _attackProjectilesCount = 8;
+	[SerializeField] private int _damage = 5;
+	[SerializeField] private int _attackProjectilesCount = 8;
 	[SerializeField] private string _attackName = "Attack";
 	[SerializeField] private float _offset = 5;
 	[SerializeField] private float _delayBetweenEpls = 0.2f;
@@ -16,7 +16,6 @@ public class GolemAttackB : GolemAttackState
 	[SerializeField] private string _runName = "Run";
 	[Header("Ability")]
 	[SerializeField] private string _abilityName = "Ability";
-	private GolemHealth _health;
 	private bool _isAlreadyAttack = false;
 
 	private const GolemState GOLEM_STATE = GolemState.B;
@@ -26,12 +25,6 @@ public class GolemAttackB : GolemAttackState
 		base.Init();
 		ResetAttack();
 		currentAttackDelay = 0;
-	}
-
-	protected override void Awake()
-	{
-		base.Awake();
-		_health = GetComponent<GolemHealth>();
 	}
 
 	private void ResetAttack()
@@ -47,10 +40,10 @@ public class GolemAttackB : GolemAttackState
 
 	private void Update()
 	{
-		if (!GameManager.IsGamePaused && controller.CurentState == GOLEM_STATE && !_isAlreadyAttack)
+		if (controller.CurentState == GOLEM_STATE && !_isAlreadyAttack && !health.IsDead)
 		{
 			currentAttackDelay += Time.deltaTime;
-			if (_health.IsAbleToRebirth)
+			if (health.IsAbleToRebirth)
 			{
 				Rebirth();
 			}
@@ -64,8 +57,11 @@ public class GolemAttackB : GolemAttackState
 
 	private void Rebirth()
 	{
-		animator.SetTrigger(_abilityName);
-		_health.Rebirth();
+		health.Rebirth();
+		if (!health.IsAbleToRebirth)
+		{
+			animator.SetTrigger(_abilityName);
+		}
 	}
 
 	private void StartRunning()
@@ -75,7 +71,7 @@ public class GolemAttackB : GolemAttackState
 			_isAlreadyAttack = true;
 			controller.SetSpeed(_runSpeed);
 			animator.SetBool(_runName, true);
-			_health.DisactiveHitAnim();
+			health.DisactiveHitAnim();
 		}
 	}
 
@@ -86,10 +82,10 @@ public class GolemAttackB : GolemAttackState
 		if (controller.CurentState == GOLEM_STATE)
 			animator.SetBool(_runName, false);
 
-		_health.ActiveHitAnim();
+		health.ActiveHitAnim();
 	}
 
-	private void InstExplosion(Vector3 pos, Quaternion quaternion, uint damage)
+	private void InstExplosion(Vector3 pos, Quaternion quaternion, int damage)
 	{
 		GameObject gameObject = InstAttackObject(pos, quaternion);
 		gameObject.TryGetComponent(out GolemExplosion explosion);
@@ -102,10 +98,11 @@ public class GolemAttackB : GolemAttackState
 
 		yield return new WaitForSeconds(_runTime);
 
-		StopRunning();
-
 		if (controller.CurentState == GOLEM_STATE)
+		{
+			StopRunning();
 			animator.SetTrigger(_attackName);
+		}
 	}
 
 	private IEnumerator AttackCoroutine()

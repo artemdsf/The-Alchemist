@@ -4,8 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(AttackVisual), typeof(Collider2D))]
 public class PlayerAttack : MonoBehaviour
 {
-	private uint _damage = 0;
-	private uint _heal = 0;
+	private int _damage = 0;
+	private int _heal = 0;
 
 	private ElementEnum _element;
 	private EnemyHealth _enemyHealth;
@@ -21,7 +21,7 @@ public class PlayerAttack : MonoBehaviour
 	private float _lifeTime = 0;
 	private float _curentLifeTime = 0;
 
-	public void Init(uint damage, uint heal, float speed, float rotationSpeed, float lifeTime, bool canBeDestroyed, ElementEnum elementEnum)
+	public void Init(int damage, int heal, float speed, float rotationSpeed, float lifeTime, bool canBeDestroyed, ElementEnum elementEnum)
 	{
 		_curentLifeTime = 0;
 		_damage = damage;
@@ -49,12 +49,9 @@ public class PlayerAttack : MonoBehaviour
 
 	protected virtual void Update()
 	{
-		if (!GameManager.IsGamePaused)
-		{
-			Move();
-			Rotate();
-			CheckForLifeTime();
-		}
+		Move();
+		Rotate();
+		CheckForLifeTime();
 	}
 
 	protected void TryDamage(Collider2D collider)

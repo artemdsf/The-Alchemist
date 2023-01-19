@@ -22,11 +22,8 @@ public class PlayerArea : PlayerAttack
 
 	protected override void Update()
 	{
-		if (!GameManager.IsGamePaused)
-		{
-			base.Update();
-			UpdateDelay();
-		}
+		base.Update();
+		UpdateDelay();
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
@@ -41,11 +38,8 @@ public class PlayerArea : PlayerAttack
 
 	private void OnTriggerStay2D(Collider2D collision)
 	{
-		if (!GameManager.IsGamePaused)
-		{
-			Attack();
-			TryHealPlayer(collision);
-		}
+		Attack();
+		TryHealPlayer(collision);
 	}
 
 	private void Attack()

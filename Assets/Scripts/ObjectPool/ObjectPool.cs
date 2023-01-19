@@ -6,6 +6,19 @@ public class ObjectPool : MonoBehaviour
     public GameObject objectToPool;
     public int amountToPool;
 
+	public int GetActiveObjects()
+	{
+		int count = 0;
+		for (int i = 0; i < pooledObjects.Count; i++)
+		{
+			if (pooledObjects[i].activeInHierarchy)
+			{
+				count++;
+			}
+		}
+		return count;
+	}
+
 	public GameObject GetPooledObject()
 	{
 		for (int i = 0; i < pooledObjects.Count; i++)

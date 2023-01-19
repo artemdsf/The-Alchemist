@@ -6,9 +6,9 @@ public class GolemProjectile : MonoBehaviour
 	[SerializeField] private float _speed = 1f;
 	[SerializeField] private float _lifeTime = 5f;
 	private float _curentLifeTime = 0;
-	private uint _damage = 0;
+	private int _damage = 0;
 
-	public void Init(uint damage)
+	public void Init(int damage)
 	{
 		_damage = damage;
 		_curentLifeTime = 0;

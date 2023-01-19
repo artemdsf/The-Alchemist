@@ -27,7 +27,6 @@ public class EnemyController : MonoBehaviour
 	private Vector3 _scale = Vector3.one;
 
 	private float _speedError = 0.01f;
-	private bool _isSpeedReseted;
 
 	public void ResetSpeed()
 	{
@@ -36,7 +35,6 @@ public class EnemyController : MonoBehaviour
 
 	public IEnumerator ResetSpeed(float lerpRatio)
 	{
-		_isSpeedReseted = true;
 		while (Mathf.Abs(1 - _speed / _currentSpeed) > _speedError)
 		{
 			_currentSpeed = Mathf.Lerp(_currentSpeed, _speed, lerpRatio * Time.deltaTime);
@@ -52,12 +50,12 @@ public class EnemyController : MonoBehaviour
 
 	public IEnumerator SetSpeed(float speed, float lerpRatio)
 	{
-		_isSpeedReseted = false;
-		while (!_isSpeedReseted)
+		while (Mathf.Abs(1 - speed / _currentSpeed) > _speedError)
 		{
 			_currentSpeed = Mathf.Lerp(_currentSpeed, speed, lerpRatio * Time.deltaTime);
 			yield return null;
 		}
+		_currentSpeed = speed;
 	}
 
 	public void Init(ElementEnum element, Color color)
@@ -81,19 +79,18 @@ public class EnemyController : MonoBehaviour
 
 		TryGetComponent(out _enemyColor);
 		_enemyColor?.ChangeColor(_color);
+
+		SetStartOrientation();
 	}
 
 	protected virtual void Update()
 	{
-		if (!GameManager.IsGamePaused)
-		{
-			SetOrientation();
-		}
+		SetOrientation();
 	}
 
 	protected virtual void FixedUpdate()
 	{
-		if (!GameManager.IsGamePaused && isAlive)
+		if (isAlive)
 		{
 			Move(player.transform.position - transform.position);
 		}
@@ -123,6 +120,20 @@ public class EnemyController : MonoBehaviour
 			IsOrientRight = true;
 		}
 		else if (player.transform.position.x - transform.position.x < 0 && IsOrientRight)
+		{
+			transform.localScale = new Vector3(-_scale.x, _scale.y, _scale.z);
+			IsOrientRight = false;
+		}
+	}
+
+	private void SetStartOrientation()
+	{
+		if (player.transform.position.x - transform.position.x > 0)
+		{
+			transform.localScale = new Vector3(_scale.x, _scale.y, _scale.z);
+			IsOrientRight = true;
+		}
+		else if (player.transform.position.x - transform.position.x < 0)
 		{
 			transform.localScale = new Vector3(-_scale.x, _scale.y, _scale.z);
 			IsOrientRight = false;

@@ -7,8 +7,8 @@ public abstract class Weapon : MonoBehaviour
 
 	[Header("Properties")]
     [SerializeField] private float _delay;
-	[SerializeField] private uint _damage = 0;
-	[SerializeField] private uint _heal = 0;
+	[SerializeField] private int _damage = 0;
+	[SerializeField] private int _heal = 0;
 
 	[Header("Projectile")]
 	[SerializeField] private float _speed = 5;
@@ -58,10 +58,7 @@ public abstract class Weapon : MonoBehaviour
 
 	private void Update()
 	{
-		if (!GameManager.IsGamePaused)
-		{
-			UpdateDelay();
-		}
+		UpdateDelay();
 	}
 
 	private void UpdateDelay()

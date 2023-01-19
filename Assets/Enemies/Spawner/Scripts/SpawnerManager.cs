@@ -5,11 +5,10 @@ public class SpawnerManager : MonoBehaviour
 	[SerializeField] private GameObject _spawner;
 	[SerializeField] private ObjectPool _pool;
 	[SerializeField] private Color[] _elementColors;
-	[SerializeField] private float _spawnTime = 1;
 
 	[Header("Spawn range mult")]
 	[SerializeField] private float _spawnRangeMult = 2.3f;
-	[SerializeField] private float _spawnSpawnerRangeMult = 2;
+	[SerializeField] private int _maxNumOfAttemptsToSpawn = 5;
 
 	[Header("Gizmos")]
 	[SerializeField] private GameObject _player;
@@ -40,13 +39,6 @@ public class SpawnerManager : MonoBehaviour
 		}
 	}
 
-	private void OnDrawGizmos()
-	{
-		Gizmos.color = _gizmosColor;
-		float _spawnRange = Camera.main.orthographicSize * _spawnRangeMult;
-		Gizmos.DrawWireSphere(_player.transform.position, _spawnRange);
-	}
-
 	private void SetSpawner(ElementEnum element, Vector2 pos)
 	{
 		GameObject spawner = Instantiate(_spawner, pos, Quaternion.identity, transform);
@@ -56,8 +48,7 @@ public class SpawnerManager : MonoBehaviour
 			spriteRenderer.color = _elementColors[(int)element];
 
 		spawner.TryGetComponent(out EnemySpawner enemySpawner);
-		enemySpawner?.Init(element, _elementColors[(int)element],
-			_pool, _spawnRangeMult, _spawnTime);
+		enemySpawner?.Init(element, _elementColors[(int)element], _pool);
 	}
 
 	private void StartNextStage()
@@ -91,15 +82,24 @@ public class SpawnerManager : MonoBehaviour
 
 	private Vector3 GetSpawnPosition()
 	{
-		Vector3 pos = new Vector2(
-			Random.Range(-_spawnArea.x, _spawnArea.x),
-			Random.Range(-_spawnArea.y, _spawnArea.y));
-
-		Vector3 distVector = pos - _player.transform.position;
-		if (distVector.magnitude < _spawnRange)
+		Vector3 pos = Vector3.zero;
+		for (int i = 0; i < _maxNumOfAttemptsToSpawn; i++)
 		{
-			pos += distVector.normalized * _spawnRange * _spawnSpawnerRangeMult;
+			pos = new Vector2(
+				Random.Range(-_spawnArea.x, _spawnArea.x),
+				Random.Range(-_spawnArea.y, _spawnArea.y));
+
+			Vector3 distVector = pos - _player.transform.position;
+			if (distVector.magnitude > _spawnRange)
+				return pos;
 		}
 		return pos;
+	}
+
+	private void OnDrawGizmos()
+	{
+		Gizmos.color = _gizmosColor;
+		float _spawnRange = Camera.main.orthographicSize * _spawnRangeMult;
+		Gizmos.DrawWireSphere(_player.transform.position, _spawnRange);
 	}
 }

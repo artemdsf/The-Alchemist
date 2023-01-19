@@ -5,6 +5,7 @@ public class EnemyHealth : MonoBehaviour
 	[SerializeField] protected float maxHealth = 20;
 
 	public bool IsDead { get; private set; }
+	public bool IsHitAnimActive { get; private set; }
 
 	protected float health;
 	protected float armor;
@@ -27,11 +28,17 @@ public class EnemyHealth : MonoBehaviour
 		{
 			armor = 0;
 			BreakArmor();
+			DisactiveHitAnim();
 		}
 		if (health <= 0 && !IsDead)
 		{
 			health = 0;
 			StartDeath();
+		}
+
+		if (IsHitAnimActive)
+		{
+			animator.SetTrigger("Hit");
 		}
 	}
 
@@ -41,6 +48,16 @@ public class EnemyHealth : MonoBehaviour
 		health = maxHealth;
 		_collider.enabled = true;
 		IsDead = false;
+	}
+
+	public void ActiveHitAnim()
+	{
+		IsHitAnimActive = true;
+	}
+
+	public void DisactiveHitAnim()
+	{
+		IsHitAnimActive = false;
 	}
 
 	protected void Death()
@@ -54,7 +71,7 @@ public class EnemyHealth : MonoBehaviour
 		animator = GetComponent<Animator>();
 	}
 
-	private void BreakArmor()
+	protected void BreakArmor()
 	{
 		animator.SetTrigger("Break");
 	}

@@ -3,14 +3,7 @@ using UnityEngine;
 
 public class PlayerWeaponManager : MonoBehaviour
 {
-	public float Damage => _damage;
-	public int Heal => _heal;
-
-	public ElementsManagerUI ElementsManager => _elementsManagerUI;
 	[SerializeField] private ElementsManagerUI _elementsManagerUI;
-
-	[SerializeField] private float _damage = 10;
-	[SerializeField] private int _heal = 1;
 
 	[Header("Weapons")]
 	[SerializeField] private Weapon[] _weapons;
@@ -37,11 +30,8 @@ public class PlayerWeaponManager : MonoBehaviour
 
 	private void Update()
 	{
-		if (!GameManager.IsGamePaused)
-		{
-			CheckElement();
-			CheckAttack();
-		}
+		CheckElement();
+		CheckAttack();
 	}
 
 	private void CheckElement()

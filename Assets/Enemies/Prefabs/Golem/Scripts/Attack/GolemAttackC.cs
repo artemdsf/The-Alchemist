@@ -5,16 +5,21 @@ public class GolemAttackC : GolemAttackState
 {
 	[Header("Ability")]
 	[SerializeField] private string _abilityName = "Ability";
+	[SerializeField] private int _damage = 5;
+	[SerializeField] private int _abilityThornsCount = 4;
+	[SerializeField] private float _directionsCount = 8;
+	[SerializeField] private float _offset = 5;
+	[SerializeField] private float _time = 2;
 	[Header("Attack1")]
 	[SerializeField] private string _attack1Name = "Attack";
-	[SerializeField] private uint _damage1 = 5;
-	[SerializeField] private uint _attackThornsCount = 8;
-	[SerializeField] private float _offset = 5;
+	[SerializeField] private int _damage1 = 5;
+	[SerializeField] private int _attackThornsCount = 8;
+	[SerializeField] private float _attackOffset = 5;
 	[SerializeField] private string _attack1PoolName;
 	[Header("Attack2")]
 	[SerializeField] private string _attack2Name = "Attack2";
-	[SerializeField] private uint _damage2 = 5;
-	[SerializeField] private uint _attackProjsCount = 4;
+	[SerializeField] private int _damage2 = 5;
+	[SerializeField] private int _attackProjsCount = 4;
 	[SerializeField] private float _startAngle = 45;
 	[SerializeField] private Vector3 _firstPos;
 	[SerializeField] private Vector3 _secondPos;
@@ -25,18 +30,96 @@ public class GolemAttackC : GolemAttackState
 	[Header("Rebirth")]
 	[SerializeField] private float _armor = 20;
 
-	[SerializeField] private GolemHealth _health;
-
 	private ObjectPool _attack1Pool;
 
 	private const GolemState GOLEM_STATE = GolemState.C;
+	private GolemAttacksEnum _lastAtack = GolemAttacksEnum.Ability;
 
 	private const int CIRCLE_DEGREES = 360;
+	private const float CIRCLE_RADIANS = 2 * Mathf.PI;
+
+	private bool _isAlreadyAttack;
 
 	public override void Init()
 	{
 		base.Init();
-		_health.AddArmor(_armor);
+		health.AddArmor(_armor);
+		_isAlreadyAttack = false;
+	}
+
+	protected override void Awake()
+	{
+		base.Awake();
+
+		_attack1Pool = GameObject.Find(_attack1PoolName)?.GetComponent<ObjectPool>();
+	}
+
+	private void Update()
+	{
+		if (controller.CurentState == GOLEM_STATE && !_isAlreadyAttack && !health.IsDead)
+		{
+			currentAttackDelay += Time.deltaTime;
+			if (currentAttackDelay > attackDelay)
+			{
+				int attack = Random.Range(0, System.Enum.GetNames(typeof(GolemAttacksEnum)).Length);
+
+				if (_lastAtack == (GolemAttacksEnum)attack)
+					_lastAtack = (GolemAttacksEnum)((attack + 1) % System.Enum.GetNames(typeof(GolemAttacksEnum)).Length);
+				else
+					_lastAtack = (GolemAttacksEnum)attack;
+
+				switch (_lastAtack)
+				{
+					case GolemAttacksEnum.Ability:
+						Ability();
+						break;
+					case GolemAttacksEnum.Attack1:
+						Attack1();
+						break;
+					case GolemAttacksEnum.Attack2:
+						Attack2();
+						break;
+					case GolemAttacksEnum.Attack3:
+						Attack3();
+						break;
+				}
+				currentAttackDelay = 0;
+			}
+		}
+	}
+	
+	private IEnumerator PauseAnim()
+	{
+		float tmp = animator.speed;
+
+		animator.speed = 0;
+		health.ActiveImmuneToDamage();
+		_isAlreadyAttack = true;
+
+		yield return new WaitForSeconds(_time);
+
+		animator.speed = tmp;
+		health.DisactiveImmuneToDamage();
+		_isAlreadyAttack = false;
+	}
+
+	private IEnumerator StartAbilityAttack()
+	{
+		Vector3 curentPos = transform.position;
+		float angleOffset = Random.Range(0, CIRCLE_RADIANS);
+
+		for (int i = 0; i < _abilityThornsCount; i++)
+		{
+			for (int j = 0; j < _directionsCount; j++)
+			{
+				float angle = CIRCLE_RADIANS * j / _directionsCount + angleOffset;
+				Vector3 dir = new Vector3(Mathf.Sin(angle), Mathf.Cos(angle));
+
+				InstThorns(curentPos + _offset * (i + 1) * dir, Quaternion.identity, _damage);
+			}
+
+			yield return new WaitForSeconds(_time / _abilityThornsCount);
+		}
 	}
 
 	private void StartAttack1C()
@@ -48,7 +131,7 @@ public class GolemAttackC : GolemAttackState
 		{
 			for (int i = 0; i < _attackThornsCount; i++)
 			{
-				InstThorns(curentPos + _offset * (i + 1) * dir, Quaternion.identity, _damage1);
+				InstThorns(curentPos + _attackOffset * (i + 1) * dir, Quaternion.identity, _damage1);
 			}
 		}
 	}
@@ -93,33 +176,19 @@ public class GolemAttackC : GolemAttackState
 		StartCoroutine(controller.ResetSpeed(_slideLerpRatio));
 	}
 
-	protected override void Start()
+	private void StartBreak()
 	{
-		Debug.Log("To remove");
-		base.Start();
-		StartCoroutine(Tmp());
+		_isAlreadyAttack = true;
 	}
 
-	protected override void Awake()
-	{
-		base.Awake();
-
-		_attack1Pool = GameObject.Find(_attack1PoolName)?.GetComponent<ObjectPool>();
-	}
-
-	private void Update()
-	{
-
-	}
-
-	private void InstThorns(Vector3 pos, Quaternion quaternion, uint damage)
+	private void InstThorns(Vector3 pos, Quaternion quaternion, int damage)
 	{
 		GameObject gameObject = InstAttackObject(pos, quaternion, _attack1Pool);
 		gameObject.TryGetComponent(out GolemExplosion explosion);
 		explosion?.Init(damage);
 	}
 
-	private void InstProjectie(Vector3 pos, Quaternion quaternion, uint damage)
+	private void InstProjectie(Vector3 pos, Quaternion quaternion, int damage)
 	{
 		GameObject gameObject = InstAttackObject(pos, quaternion);
 		gameObject.TryGetComponent(out GolemProjectile projectile);
@@ -148,15 +217,6 @@ public class GolemAttackC : GolemAttackState
 	{
 		if (controller.CurentState == GOLEM_STATE)
 			animator.SetTrigger(_attack3Name);
-	}
-
-	private IEnumerator Tmp()
-	{
-		while (true)
-		{
-			Attack2();
-			yield return new WaitForSeconds(3);
-		}
 	}
 
 	private void OnDrawGizmos()

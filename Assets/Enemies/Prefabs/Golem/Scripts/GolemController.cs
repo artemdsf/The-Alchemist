@@ -1,4 +1,3 @@
-using UnityEditor.Animations;
 using UnityEngine;
 
 [RequireComponent(typeof(GolemHealth), typeof(GolemAttack), typeof(GolemAttack))]
@@ -8,7 +7,7 @@ public class GolemController : EnemyController
 	[SerializeField] private float _timeToChangeDir;
 	[SerializeField] [Range(0, 1)] private float _wobbleRatio;
 	[SerializeField] private float _lerpRatio;
-	[SerializeField] private AnimatorController[] animators;
+	[SerializeField] private RuntimeAnimatorController[] animators;
 	public Animator Animator { get; private set; }
 	public GolemState CurentState { get; private set; }
 	public GolemState MaxState { get; private set; }
@@ -50,14 +49,8 @@ public class GolemController : EnemyController
 				_golemAttackC.Init();
 				break;
 		}
-	}
 
-	protected override void Start()
-	{
-		base.Start();
-
-		Debug.LogError("To remove");
-		Init(GolemState.C, 2);
+		StartMove();
 	}
 
 	protected override void Awake()
@@ -78,7 +71,7 @@ public class GolemController : EnemyController
 	{
 		base.Update();
 
-		if (!GameManager.IsGamePaused && isAlive)
+		if (isAlive)
 		{
 			_currentTimeToChangeDir += Time.deltaTime;
 		}
@@ -93,7 +86,7 @@ public class GolemController : EnemyController
 
 	protected override void FixedUpdate()
 	{
-		if (!GameManager.IsGamePaused && isAlive && _isAbleToMove)
+		if (isAlive && _isAbleToMove)
 		{
 			_lastDirection = Vector3.Lerp(_lastDirection, _currentDirection, Time.deltaTime * _lerpRatio);
 			Move(_lastDirection);

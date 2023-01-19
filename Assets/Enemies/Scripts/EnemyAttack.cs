@@ -3,7 +3,7 @@ using UnityEngine;
 public class EnemyAttack : MonoBehaviour
 {
 	[Header("Attack properties")]
-	[SerializeField] protected uint damage = 1;
+	[SerializeField] protected int damage = 1;
 
 	public GameObject Player { get; private set; }
 

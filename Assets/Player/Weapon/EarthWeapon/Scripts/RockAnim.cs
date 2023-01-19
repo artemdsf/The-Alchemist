@@ -4,7 +4,7 @@ public class RockAnim : MonoBehaviour
 {
 	[SerializeField] private Gradient _gradient;
 	[SerializeField] private float _gradSpeed;
-    private Material _material; 
+	private Material _material;
 	private float _color;
 
 	private void Awake()
@@ -14,11 +14,8 @@ public class RockAnim : MonoBehaviour
 
 	private void Update()
 	{
-		if (!GameManager.IsGamePaused)
-		{
-			_color += Time.deltaTime * _gradSpeed;
-			_color %= 1;
-			_material.SetVector("_EmissionColor", _gradient.Evaluate(_color));
-		}
+		_color += Time.deltaTime * _gradSpeed;
+		_color %= 1;
+		_material.SetVector("_EmissionColor", _gradient.Evaluate(_color));
 	}
 }

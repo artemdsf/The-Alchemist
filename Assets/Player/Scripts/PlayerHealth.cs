@@ -2,21 +2,21 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-	public uint MaxHealth => _maxHealth;
-	public uint Health => _health;
+	public int MaxHealth => _maxHealth;
+	public int Health => _health;
 
-	[SerializeField] private uint _maxHealth = 100;
-	private uint _health = 100;
-	private uint _defense = 0;
+	[SerializeField] private int _maxHealth = 100;
+	private int _health = 100;
+	private int _defense = 0;
 
 	private void Awake()
 	{
 		_health = _maxHealth;
 	}
 
-	public void Damage(uint attack)
+	public void Damage(int attack)
 	{
-		uint _damage = attack - _defense >= 0 ? attack - _defense : 0;
+		int _damage = attack - _defense >= 0 ? attack - _defense : 0;
 
 		_health -= _damage;
 
@@ -27,7 +27,7 @@ public class PlayerHealth : MonoBehaviour
 		}
 	}
 
-	public void Heal(uint heal)
+	public void Heal(int heal)
 	{
 		_health += heal;
 

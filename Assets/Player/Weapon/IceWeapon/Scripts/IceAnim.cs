@@ -15,10 +15,7 @@ public class IceAnim : MonoBehaviour
 
 	private void Update()
 	{
-		if (!GameManager.IsGamePaused)
-		{
-			_time += Time.deltaTime;
-			_spriteRenderer.color = _gradient.Evaluate(_time % 1);
-		}
+		_time += Time.deltaTime;
+		_spriteRenderer.color = _gradient.Evaluate(_time % 1);
 	}
 }

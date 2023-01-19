@@ -22,13 +22,17 @@ public class PauseManager : MonoBehaviour
 	{
 		if (Input.GetKeyDown(HotKeys.Escape))
 		{
-			SetPause(!GameManager.IsGamePaused);
+			GameManager.IsGamePaused = !GameManager.IsGamePaused;
+			SetPause(GameManager.IsGamePaused);
 		}
 	}
 
 	private void SetPause(bool isPaused)
 	{
-		GameManager.IsGamePaused = isPaused;
+		if (isPaused)
+			Time.timeScale = 0;
+		else
+			Time.timeScale = 1;
 		_escapeMenu?.SetActive(isPaused);
 		_UI?.SetActive(!isPaused);
 	}

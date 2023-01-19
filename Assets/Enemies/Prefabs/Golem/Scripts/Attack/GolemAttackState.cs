@@ -12,24 +12,32 @@ public abstract class GolemAttackState : MonoBehaviour
 	protected GolemController controller;
 	protected Animator animator;
 	protected GameObject player;
-
+	protected GolemHealth health;
+	
 	private ObjectPool _pool;
 
 	public virtual void Init()
 	{
 		currentAttackDelay = 0;
+		controller.ResetSpeed();
 	}
 
 	protected virtual void Awake()
 	{
 		controller = GetComponent<GolemController>();
 		_pool = GameObject.Find(attackPoolName)?.GetComponent<ObjectPool>();
+		health = GetComponent<GolemHealth>();
 	}
 
 	protected virtual void Start()
 	{
 		player = GetComponent<GolemAttack>().Player;
 		animator = controller.Animator;
+	}
+
+	private void Reload()
+	{
+		currentAttackDelay = attackDelay;
 	}
 
 	protected GameObject InstAttackObject(Vector3 pos, Quaternion quaternion)

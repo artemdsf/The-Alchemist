@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class GolemHealth : EnemyHealth
 {
-	public bool IsAbleToRebirth => health < maxHealth / (_maxRebirthCount + 1) * _rebirthCountLeft;
-	public bool IsHitAnimActive { get; private set; }
+	public bool IsAbleToRebirth => health < maxHealth / (_maxRebirthCount + 1) * _rebirthCountLeft && health > 0;
+
+	public bool IsImmuneToDamage { get; private set; }
 
 	private int _maxRebirthCount;
 	private int _rebirthCountLeft;
@@ -13,16 +14,16 @@ public class GolemHealth : EnemyHealth
 		_maxRebirthCount = rebirthCount;
 		_rebirthCountLeft = rebirthCount;
 		ActiveHitAnim();
+		DisactiveImmuneToDamage();
 	}
 
 	public override void TakeDamage(ElementEnum element, float dmg)
 	{
-		if (IsHitAnimActive)
+		if (!IsImmuneToDamage && !IsDead)
 		{
-			animator.SetTrigger("Hit");
-		}
+			base.TakeDamage(element, dmg);
 
-		base.TakeDamage(element, dmg);
+		}
 	}
 
 	public void AddArmor(float armor)
@@ -35,20 +36,13 @@ public class GolemHealth : EnemyHealth
 		_rebirthCountLeft--;
 	}
 
-	public void DisactiveHitAnim()
+	public void ActiveImmuneToDamage()
 	{
-		IsHitAnimActive = false;
+		IsImmuneToDamage = true;
 	}
 
-	public void ActiveHitAnim()
+	public void DisactiveImmuneToDamage()
 	{
-		IsHitAnimActive = true;
-	}
-
-	//To remove
-	private void Start()
-	{
-		Debug.LogError("To remove");
-		Init(ElementEnum.Earth);
+		IsImmuneToDamage = false;
 	}
 }

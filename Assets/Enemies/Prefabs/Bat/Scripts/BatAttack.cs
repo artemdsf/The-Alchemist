@@ -14,21 +14,13 @@ public class BatAttack : EnemyAttack
 
 	private void Update()
 	{
-		if (!GameManager.IsGamePaused)
+		if (CheckRange())
 		{
-			_animator.speed = 1;
-			if (CheckRange())
-			{
-				StartAttack();
-			}
-			else
-			{
-				EndAttack();
-			}
+			StartAttack();
 		}
 		else
 		{
-			_animator.speed = 0;
+			EndAttack();
 		}
 	}
 

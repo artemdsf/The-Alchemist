@@ -4,14 +4,14 @@ using UnityEngine;
 public class GolemExplosion : MonoBehaviour
 {
 	[SerializeField] private BoxCollider2D _boxCollider;
-	[SerializeField] private uint _damage;
+	[SerializeField] private int _damage;
 
 	private void Awake()
 	{
 		DisactiveCollider();
 	}
 
-	public void Init(uint damage)
+	public void Init(int damage)
 	{
 		_damage = damage;
 	}

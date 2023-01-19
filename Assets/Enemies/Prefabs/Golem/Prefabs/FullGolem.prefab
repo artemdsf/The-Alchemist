@@ -264,20 +264,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPoolName: GolemProjsPool
-  attackDelay: 1
+  attackDelay: 2
   _abilityName: Ability
+  _damage: 10
+  _abilityThornsCount: 8
+  _directionsCount: 8
+  _offset: 3.5
+  _time: 2
   _attack1Name: Attack
-  _damage1: 20
+  _damage1: 10
   _attackThornsCount: 8
-  _offset: 4
+  _attackOffset: 5
   _attack1PoolName: GolemThornsPool
   _attack2Name: Attack 2
-  _damage2: 5
+  _damage2: 10
+  _attackProjsCount: 8
+  _startAngle: 22.5
+  _firstPos: {x: 1, y: -1.5, z: 0}
+  _secondPos: {x: 0, y: -1.5, z: 0}
   _slideSpeed: 25
   _slideLerpRatio: 15
   _attack3Name: Attack 3
-  _armor: 20
-  _health: {fileID: 5350095693756624087}
+  _armor: 50
 --- !u!114 &2257682425850777483
 MonoBehaviour:
   m_ObjectHideFlags: 0
