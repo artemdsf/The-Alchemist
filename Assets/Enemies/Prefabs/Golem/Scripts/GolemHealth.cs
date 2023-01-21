@@ -13,7 +13,6 @@ public class GolemHealth : EnemyHealth
 	{
 		_maxRebirthCount = rebirthCount;
 		_rebirthCountLeft = rebirthCount;
-		ActiveHitAnim();
 		DisactiveImmuneToDamage();
 	}
 

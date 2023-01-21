@@ -20,20 +20,23 @@ public class EnemyHealth : MonoBehaviour
 		dmg *= GameManager.GetDamageMult(element, _element);
 
 		if (armor > 0)
+		{
 			armor -= dmg;
-		else
-			health -= dmg;
-
-		if (armor <= 0)
-		{
-			armor = 0;
-			BreakArmor();
-			DisactiveHitAnim();
+			if (armor <= 0)
+			{
+				armor = 0;
+				BreakArmor();
+				DisactiveHitAnim();
+			}
 		}
-		if (health <= 0 && !IsDead)
+		else
 		{
-			health = 0;
-			StartDeath();
+			health -= dmg;
+			if (health <= 0 && !IsDead)
+			{
+				health = 0;
+				StartDeath();
+			}
 		}
 
 		if (IsHitAnimActive)
@@ -42,12 +45,14 @@ public class EnemyHealth : MonoBehaviour
 		}
 	}
 
-	public void Init(ElementEnum element)
+	public virtual void Init(ElementEnum element)
 	{
+		IsHitAnimActive = true;
 		_element = element;
 		health = maxHealth;
 		_collider.enabled = true;
 		IsDead = false;
+		ActiveHitAnim();
 	}
 
 	public void ActiveHitAnim()
@@ -81,5 +86,7 @@ public class EnemyHealth : MonoBehaviour
 		IsDead = true;
 		_collider.enabled = false;
 		animator.SetTrigger("Death");
+		animator.ResetTrigger("Run");
+		DisactiveHitAnim();
 	}
 }
