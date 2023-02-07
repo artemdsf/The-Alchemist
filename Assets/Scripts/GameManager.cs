@@ -2,7 +2,7 @@ using UnityEngine;
 
 public static class GameManager
 {
-    public static Vector2Int FieldSize;
+	public static Vector2Int FieldSize;
 
 	public static bool IsGamePaused;
 

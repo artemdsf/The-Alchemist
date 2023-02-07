@@ -15,10 +15,10 @@ public class EnemySpawner : MonoBehaviour
 
 	protected float spawnRange;
 	private float _curentTime;
-
+	
 	private void Awake()
 	{
-		player = GameObject.FindGameObjectWithTag("Player");
+		player = GameObject.FindGameObjectWithTag(Const.PlayerName);
 		_enemyController = GetComponent<EnemyController>();
 		spawnRange = Camera.main.orthographicSize * _spawnRangeMult;
 	}
@@ -63,8 +63,11 @@ public class EnemySpawner : MonoBehaviour
 
 	private void OnDrawGizmos()
 	{
-		Gizmos.color = _gizmosColor;
-		float _spawnRange = Camera.main.orthographicSize * _spawnRangeMult;
-		Gizmos.DrawWireSphere(player.transform.position, _spawnRange);
+		if (player != null)
+		{
+			Gizmos.color = _gizmosColor;
+			float _spawnRange = Camera.main.orthographicSize * _spawnRangeMult;
+			Gizmos.DrawWireSphere(player.transform.position, _spawnRange);
+		}
 	}
 }

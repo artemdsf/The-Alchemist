@@ -37,7 +37,8 @@ public class PlayerAttack : MonoBehaviour
 
 	protected virtual void Disactivate()
 	{
-		StartCoroutine(Death());
+		if (gameObject.activeInHierarchy)
+			StartCoroutine(Death());
 	}
 
 	protected virtual void Awake()
@@ -56,7 +57,7 @@ public class PlayerAttack : MonoBehaviour
 
 	protected void TryDamage(Collider2D collider)
 	{
-		if (_damage > 0 && collider.tag == "Enemy")
+		if (_damage > 0 && collider.tag == Const.EnemyName)
 		{
 			Damage(collider);
 
@@ -69,7 +70,7 @@ public class PlayerAttack : MonoBehaviour
 
 	protected virtual void TryHealPlayer(Collider2D collider)
 	{
-		if (_heal > 0)
+		if (_heal > 0 && collider.tag == Const.PlayerName)
 		{
 			HealPlayer();
 

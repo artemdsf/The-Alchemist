@@ -41,7 +41,7 @@ public class EnemyHealth : MonoBehaviour
 
 		if (IsHitAnimActive)
 		{
-			animator.SetTrigger("Hit");
+			animator.SetTrigger(Const.HitName);
 		}
 	}
 
@@ -78,15 +78,15 @@ public class EnemyHealth : MonoBehaviour
 
 	protected void BreakArmor()
 	{
-		animator.SetTrigger("Break");
+		animator.SetTrigger(Const.BreakName);
 	}
 
 	private void StartDeath()
 	{
 		IsDead = true;
 		_collider.enabled = false;
-		animator.SetTrigger("Death");
-		animator.ResetTrigger("Run");
+		animator.SetTrigger(Const.DeathName);
+		animator.ResetTrigger(Const.RunName);
 		DisactiveHitAnim();
 	}
 }

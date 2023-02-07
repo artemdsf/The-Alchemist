@@ -141,6 +141,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172cd99760c74094ea0427771b117d48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  element: 0
+  color: {r: 1, g: 1, b: 1, a: 1}
+  _spawnTime: 1
+  _spawnRangeMult: 2.3
+  _gizmosColor: {r: 0, g: 0, b: 0, a: 0}
+  player: {fileID: 0}
 --- !u!114 &-3682264258729689203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,7 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a511b1c21e03da942b33a33c659cc4af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 1000
+  maxHealth: 20
 --- !u!114 &3540148757029105873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,7 +187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9c8320bb11d31945a06c9027e85bdea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 1
+  damage: 1
 --- !u!114 &3625820937719846732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,6 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b887945729e052f4a8622ebb7dd237c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _pivot: {x: 0, y: 0, z: 0}
   _speed: 0
 --- !u!1 &8615869972114936266
 GameObject:

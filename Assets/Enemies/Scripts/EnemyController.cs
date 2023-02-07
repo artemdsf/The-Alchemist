@@ -5,12 +5,13 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class EnemyController : MonoBehaviour
 {
+	[SerializeField] private Vector3 _pivot = Vector3.zero;
 	[SerializeField] [Min(0)] private float _speed = 1f;
 	private float _currentSpeed = 1f;
 
-	public Animator _animator { get; private set; }
-
 	public ElementEnum Element { get; private set; }
+
+	public Vector3 Pivot => _pivot;
 
 	public bool IsOrientRight { get; private set; }
 
@@ -25,6 +26,7 @@ public class EnemyController : MonoBehaviour
 	private Color _color = Color.white;
 
 	private Vector3 _scale = Vector3.one;
+	private Vector3 _pos = Vector3.one;
 
 	private float _speedError = 0.01f;
 
@@ -58,11 +60,13 @@ public class EnemyController : MonoBehaviour
 		_currentSpeed = speed;
 	}
 
-	public void Init(ElementEnum element, Color color)
+	public virtual void Init(ElementEnum element, Color color)
 	{
 		Element = element;
 		_color = color;
 		_health.Init(Element);
+		ResetSpeed();
+		_pos = transform.position + _pivot;
 	}
 
 	protected virtual void Awake()
@@ -75,7 +79,7 @@ public class EnemyController : MonoBehaviour
 
 	protected virtual void Start()
 	{
-		player = GameObject.FindGameObjectWithTag("Player");
+		player = GameObject.FindGameObjectWithTag(Const.PlayerName);
 
 		TryGetComponent(out _enemyColor);
 		_enemyColor?.ChangeColor(_color);
@@ -85,18 +89,22 @@ public class EnemyController : MonoBehaviour
 
 	protected virtual void Update()
 	{
-		SetOrientation();
+		if (_speed != 0)
+		{
+			SetOrientation();
+		}
+		_pos = transform.position + _pivot;
 	}
 
 	protected virtual void FixedUpdate()
 	{
 		if (isAlive)
 		{
-			Move(player.transform.position - transform.position);
+			Move(player.transform.position - _pos);
 		}
 		else
 		{
-			Move(player.transform.position - transform.position, 0);
+			Move(player.transform.position - _pos, 0);
 		}
 	}
 
@@ -108,18 +116,18 @@ public class EnemyController : MonoBehaviour
 
 	protected void Move(Vector3 pos, float speed)
 	{
-		Vector2 dir = (pos - transform.position).normalized;
+		Vector2 dir = (pos - _pos).normalized;
 		_rb.velocity = dir * speed;
 	}
 
 	protected void SetOrientation()
 	{
-		if (player.transform.position.x - transform.position.x > 0 && !IsOrientRight)
+		if (player.transform.position.x - _pos.x > 0 && !IsOrientRight)
 		{
 			transform.localScale = new Vector3(_scale.x, _scale.y, _scale.z);
 			IsOrientRight = true;
 		}
-		else if (player.transform.position.x - transform.position.x < 0 && IsOrientRight)
+		else if (player.transform.position.x - _pos.x < 0 && IsOrientRight)
 		{
 			transform.localScale = new Vector3(-_scale.x, _scale.y, _scale.z);
 			IsOrientRight = false;
@@ -128,15 +136,20 @@ public class EnemyController : MonoBehaviour
 
 	private void SetStartOrientation()
 	{
-		if (player.transform.position.x - transform.position.x > 0)
+		if (player.transform.position.x - _pos.x > 0)
 		{
 			transform.localScale = new Vector3(_scale.x, _scale.y, _scale.z);
 			IsOrientRight = true;
 		}
-		else if (player.transform.position.x - transform.position.x < 0)
+		else if (player.transform.position.x - _pos.x < 0)
 		{
 			transform.localScale = new Vector3(-_scale.x, _scale.y, _scale.z);
 			IsOrientRight = false;
 		}
+	}
+
+	private void OnDrawGizmos()
+	{
+		Gizmos.DrawIcon(_pivot + transform.position, "Pivot", false);
 	}
 }

@@ -29,8 +29,7 @@ public class BossSpawner : EnemySpawner
 			gameObject.SetActive(true);
 			gameObject.transform.position = pos;
 			gameObject.TryGetComponent(out GolemController golemController);
-			golemController.Init(GolemState.C, 1);
-			golemController.Init(element, color);
+			golemController.InitBoss(element, color, GolemState.C, 1);
 		}
 	}
 }

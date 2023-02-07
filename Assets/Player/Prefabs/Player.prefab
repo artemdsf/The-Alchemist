@@ -144,7 +144,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxSpeed: 5
-  _lerpSpeed: 0.01
   _barrierGizmosColor: {r: 1, g: 0.3537736, b: 0.3537736, a: 1}
 --- !u!114 &7496886736929217174
 MonoBehaviour:
@@ -171,9 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d055c197d976674f9c49d988e622bfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ElementsManager: {fileID: 0}
-  _damage: 10
-  _heal: 1
+  _elementsManagerUI: {fileID: 0}
   _weapons: []
 --- !u!1001 &3339313010282378
 PrefabInstance:
