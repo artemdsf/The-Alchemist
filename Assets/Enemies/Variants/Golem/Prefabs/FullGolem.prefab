@@ -13,13 +13,13 @@ GameObject:
   - component: {fileID: 6834896945953759394}
   - component: {fileID: 4257163972997972227}
   - component: {fileID: 2115397382959728396}
-  - component: {fileID: 7355983877685351927}
   - component: {fileID: 5350095693756624087}
   - component: {fileID: 4897076865573390891}
   - component: {fileID: 4049601903852789748}
   - component: {fileID: -6385578442390595800}
   - component: {fileID: 1459603285011988722}
   - component: {fileID: 2257682425850777483}
+  - component: {fileID: 7355983877685351927}
   m_Layer: 0
   m_Name: FullGolem
   m_TagString: Enemy
@@ -151,30 +151,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: -0.03}
   m_Size: {x: 0.13, y: 0.25}
   m_Direction: 0
---- !u!114 &7355983877685351927
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1634616408036753517}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f58109aff160437439d14894e15698dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 2
-  _timeToChangeDir: 0.5
-  _wobbleRatio: 0.7
-  _lerpRatio: 5
-  animators:
-  - {fileID: 9100000, guid: de73cdbd51b1a4e429a03c2fe0f351a1, type: 2}
-  - {fileID: 9100000, guid: 006d284ae59a5a947ae44f27bb565865, type: 2}
-  - {fileID: 9100000, guid: b6552c3aebf2795439614ec6931df748, type: 2}
-  _golemAttackA: {fileID: 4049601903852789748}
-  _golemAttackB: {fileID: -6385578442390595800}
-  _golemAttackC: {fileID: 1459603285011988722}
-  _golemHealth: {fileID: 5350095693756624087}
 --- !u!114 &5350095693756624087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,6 +222,7 @@ MonoBehaviour:
   _attackProjectilesCount: 8
   _attackName: Attack
   _offset: 4
+  _startOffset: {x: 0, y: 1, z: 0}
   _delayBetweenEpls: 0.15
   _runSpeed: 10
   _runTime: 1
@@ -298,4 +275,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fc6953d112270243903329391c6f5ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particleSystems: []
+  _particleSystems: []
+--- !u!114 &7355983877685351927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1634616408036753517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f58109aff160437439d14894e15698dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pivot: {x: 0, y: 0, z: 0}
+  _speed: 2
+  _timeToChangeDir: 0.5
+  _wobbleRatio: 0.7
+  _lerpRatio: 5
+  animators:
+  - {fileID: 9100000, guid: de73cdbd51b1a4e429a03c2fe0f351a1, type: 2}
+  - {fileID: 9100000, guid: 006d284ae59a5a947ae44f27bb565865, type: 2}
+  - {fileID: 9100000, guid: b6552c3aebf2795439614ec6931df748, type: 2}
+  _golemAttackA: {fileID: 4049601903852789748}
+  _golemAttackB: {fileID: -6385578442390595800}
+  _golemAttackC: {fileID: 1459603285011988722}
+  _golemHealth: {fileID: 5350095693756624087}

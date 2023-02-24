@@ -7,15 +7,13 @@ public class GolemAttackB : GolemAttackState
 	[SerializeField] private Vector3 _attack1Pos;
 	[SerializeField] private int _damage = 5;
 	[SerializeField] private int _attackProjectilesCount = 8;
-	[SerializeField] private string _attackName = "Attack";
 	[SerializeField] private float _offset = 5;
+	[SerializeField] private Vector3 _startOffset = Vector3.up;
 	[SerializeField] private float _delayBetweenEpls = 0.2f;
 	[Header("Run")]
 	[SerializeField] private float _runSpeed;
 	[SerializeField] private float _runTime;
-	[SerializeField] private string _runName = "Run";
 	[Header("Ability")]
-	[SerializeField] private string _abilityName = "Ability";
 	private bool _isAlreadyAttack = false;
 
 	private const GolemState GOLEM_STATE = GolemState.B;
@@ -60,7 +58,7 @@ public class GolemAttackB : GolemAttackState
 		health.Rebirth();
 		if (!health.IsAbleToRebirth)
 		{
-			animator.SetTrigger(_abilityName);
+			animator.SetTrigger(Const.AbilityName);
 		}
 	}
 
@@ -70,7 +68,7 @@ public class GolemAttackB : GolemAttackState
 		{
 			_isAlreadyAttack = true;
 			controller.SetSpeed(_runSpeed);
-			animator.SetBool(_runName, true);
+			animator.SetBool(Const.RunName, true);
 			health.DisactiveHitAnim();
 		}
 	}
@@ -80,7 +78,7 @@ public class GolemAttackB : GolemAttackState
 		controller.ResetSpeed();
 
 		if (controller.CurentState == GOLEM_STATE)
-			animator.SetBool(_runName, false);
+			animator.SetBool(Const.RunName, false);
 
 		health.ActiveHitAnim();
 	}
@@ -101,7 +99,7 @@ public class GolemAttackB : GolemAttackState
 		if (controller.CurentState == GOLEM_STATE)
 		{
 			StopRunning();
-			animator.SetTrigger(_attackName);
+			animator.SetTrigger(Const.Attack1Name);
 		}
 	}
 
@@ -111,7 +109,7 @@ public class GolemAttackB : GolemAttackState
 		Vector3 dir = (player.transform.position - curentPos).normalized;
 		for (int i = 0; i < _attackProjectilesCount; i++)
 		{
-			InstExplosion(curentPos + _offset * (i + 1) * dir, Quaternion.identity, _damage);
+			InstExplosion(curentPos + _offset * (i + 1) * dir + _startOffset, Quaternion.identity, _damage);
 			yield return new WaitForSeconds(_delayBetweenEpls);
 		}
 	}

@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3, y: 6.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -43,12 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62088dc1e31f95b46a977bc3158fcb65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  elementEnum: 1
-  delay: 15
-  _projectile: {fileID: 5430531687245673668, guid: 5a203217c2e0f5847af83db5eed34a49,
-    type: 3}
+  _elementEnum: 1
+  _delay: 30
+  _damage: 1
+  _heal: 1
   _speed: 0
   _rotationSpeed: 10
-  _lifeTime: 3
-  _canBeDestroyerd: 1
+  _lifeTime: 10
+  _canBeDestroyerd: 0
   _pool: {fileID: 0}

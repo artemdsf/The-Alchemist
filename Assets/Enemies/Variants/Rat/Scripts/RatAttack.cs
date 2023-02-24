@@ -5,8 +5,6 @@ using UnityEngine;
 public class RatAttack : EnemyAttack
 {
 	[Header("Abiltity")]
-	[SerializeField] private string _abilityName = "Ability";
-	[SerializeField] private string _runName = "Run";
 	[SerializeField] private float _runSpeed = 5;
 	[SerializeField] private float _runTime = 5;
 	[SerializeField] private Vector2 _delayRange;
@@ -46,25 +44,25 @@ public class RatAttack : EnemyAttack
 	private void Init()
 	{
 		_isRunning = false;
-		animator.SetBool(_runName, false);
+		animator.SetBool(Const.RunName, false);
 		StartCoroutine(Cycle());
 	}
 
 	private void StartAbility()
 	{
 		_isRunning = true;
-		animator.SetTrigger(_abilityName);
+		animator.SetTrigger(Const.AbilityName);
 	}
 
 	private IEnumerator Ability()
 	{
 		_controller.SetSpeed(_runSpeed);
-		animator.SetBool(_runName, true);
+		animator.SetBool(Const.RunName, true);
 
 		yield return new WaitForSeconds(_runTime);
 
 		_controller.ResetSpeed();
-		animator.SetBool(_runName, false);
+		animator.SetBool(Const.RunName, false);
 		_isRunning = false;
 	}
 

@@ -12,7 +12,7 @@ public class PebbleAttack : EnemyAttack
 
 	private void OnCollisionStay2D(Collision2D collision)
 	{
-		if (_attackDelay > _maxAttackDelay && collision.gameObject.tag == "Player")
+		if (_attackDelay > _maxAttackDelay && collision.gameObject.tag == Const.PlayerName)
 		{
 			HitPlayer();
 			_attackDelay = 0;

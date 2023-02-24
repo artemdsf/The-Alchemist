@@ -45,14 +45,9 @@ public class EnemyHealth : MonoBehaviour
 		}
 	}
 
-	public virtual void Init(ElementEnum element)
+	public void SetElement(ElementEnum element)
 	{
-		IsHitAnimActive = true;
 		_element = element;
-		health = maxHealth;
-		_collider.enabled = true;
-		IsDead = false;
-		ActiveHitAnim();
 	}
 
 	public void ActiveHitAnim()
@@ -70,15 +65,23 @@ public class EnemyHealth : MonoBehaviour
 		gameObject.SetActive(false);
 	}
 
+	protected void BreakArmor()
+	{
+		animator.SetTrigger(Const.BreakName);
+	}
+
+	protected virtual void OnEnable()
+	{
+		health = maxHealth;
+		_collider.enabled = true;
+		IsDead = false;
+		ActiveHitAnim();
+	}
+
 	private void Awake()
 	{
 		_collider = GetComponent<Collider2D>();
 		animator = GetComponent<Animator>();
-	}
-
-	protected void BreakArmor()
-	{
-		animator.SetTrigger(Const.BreakName);
 	}
 
 	private void StartDeath()

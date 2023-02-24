@@ -8,10 +8,10 @@ public class EnemyController : MonoBehaviour
 	[SerializeField] private Vector3 _pivot = Vector3.zero;
 	[SerializeField] [Min(0)] private float _speed = 1f;
 	private float _currentSpeed = 1f;
+	
+	public Vector3 Pivot => _pivot;
 
 	public ElementEnum Element { get; private set; }
-
-	public Vector3 Pivot => _pivot;
 
 	public bool IsOrientRight { get; private set; }
 
@@ -22,8 +22,6 @@ public class EnemyController : MonoBehaviour
 	private Rigidbody2D _rb;
 	private EnemyHealth _health;
 	private EnemyColor _enemyColor;
-
-	private Color _color = Color.white;
 
 	private Vector3 _scale = Vector3.one;
 	private Vector3 _pos = Vector3.one;
@@ -60,31 +58,27 @@ public class EnemyController : MonoBehaviour
 		_currentSpeed = speed;
 	}
 
-	public virtual void Init(ElementEnum element, Color color)
+	public virtual void SetElement(ElementEnum element, Color color)
 	{
 		Element = element;
-		_color = color;
-		_health.Init(Element);
-		ResetSpeed();
-		_pos = transform.position + _pivot;
+		_enemyColor.ChangeColor(color);
+		_health.SetElement(Element);
 	}
 
 	protected virtual void Awake()
 	{
-		_currentSpeed = _speed;
 		_health = GetComponent<EnemyHealth>();
+		_enemyColor = GetComponent<EnemyColor>();
 		_rb = GetComponent<Rigidbody2D>();
 		_scale = transform.localScale;
+		IsOrientRight = true;
 	}
 
 	protected virtual void Start()
 	{
 		player = GameObject.FindGameObjectWithTag(Const.PlayerName);
 
-		TryGetComponent(out _enemyColor);
-		_enemyColor?.ChangeColor(_color);
-
-		SetStartOrientation();
+		SetOrientation();
 	}
 
 	protected virtual void Update()
@@ -120,28 +114,20 @@ public class EnemyController : MonoBehaviour
 		_rb.velocity = dir * speed;
 	}
 
-	protected void SetOrientation()
+	private void OnEnable()
+	{
+		ResetSpeed();
+		_pos = transform.position + _pivot;
+	}
+
+	private void SetOrientation()
 	{
 		if (player.transform.position.x - _pos.x > 0 && !IsOrientRight)
 		{
-			transform.localScale = new Vector3(_scale.x, _scale.y, _scale.z);
+			transform.localScale = _scale;
 			IsOrientRight = true;
 		}
 		else if (player.transform.position.x - _pos.x < 0 && IsOrientRight)
-		{
-			transform.localScale = new Vector3(-_scale.x, _scale.y, _scale.z);
-			IsOrientRight = false;
-		}
-	}
-
-	private void SetStartOrientation()
-	{
-		if (player.transform.position.x - _pos.x > 0)
-		{
-			transform.localScale = new Vector3(_scale.x, _scale.y, _scale.z);
-			IsOrientRight = true;
-		}
-		else if (player.transform.position.x - _pos.x < 0)
 		{
 			transform.localScale = new Vector3(-_scale.x, _scale.y, _scale.z);
 			IsOrientRight = false;

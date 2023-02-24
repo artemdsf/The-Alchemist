@@ -88,8 +88,7 @@ public class PlayerAttack : MonoBehaviour
 
 	private void Rotate()
 	{
-		transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles +
-			Vector3.forward * _rotationSpeed * Time.deltaTime);
+		transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + Vector3.forward * _rotationSpeed * Time.deltaTime);
 	}
 
 	protected virtual void Damage(Collider2D collision)

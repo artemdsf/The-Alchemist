@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BossSpawner : EnemySpawner
@@ -29,7 +27,7 @@ public class BossSpawner : EnemySpawner
 			gameObject.SetActive(true);
 			gameObject.transform.position = pos;
 			gameObject.TryGetComponent(out GolemController golemController);
-			golemController.InitBoss(element, color, GolemState.C, 1);
+			golemController.InitBoss(element, color, 1);
 		}
 	}
 }

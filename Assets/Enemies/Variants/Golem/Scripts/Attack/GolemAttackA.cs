@@ -6,16 +6,13 @@ public class GolemAttackA : GolemAttackState
 	[SerializeField] private Vector3 _attack2Pos;
 	[SerializeField] private int _damage2 = 5;
 	[SerializeField] private int _attack2ProjectilesCount = 8;
-	[SerializeField] private string _attack2Name = "Attack 2";
 	[Header("Attack 3")]
 	[SerializeField] private Vector3 _attack3Pos;
 	[SerializeField] private int _damage3 = 5;
 	[SerializeField] private int _attack3ProjectilesCount = 4;
 	[SerializeField] [Min(0)] private float _attack3MaxAngle = 30;
-	[SerializeField] private string _attack3Name = "Attack 3";
 	[Header("Ability")]
 	[SerializeField] private float _abilityDelay = 10;
-	[SerializeField] private string _abilityName = "Ability";
 	private float _currentAbilityDelay = 0;
 
 	private const GolemState GOLEM_STATE = GolemState.A;
@@ -70,7 +67,7 @@ public class GolemAttackA : GolemAttackState
 
 	private void AbilityA()
 	{
-		animator.SetTrigger(_abilityName);
+		animator.SetTrigger(Const.AbilityName);
 	}
 
 	private void Update()
@@ -104,13 +101,13 @@ public class GolemAttackA : GolemAttackState
 
 		if (angle > _attack3MaxAngle)
 		{
-			animator.SetTrigger(_attack2Name);
-			animator.ResetTrigger(_attack3Name);
+			animator.SetTrigger(Const.Attack2Name);
+			animator.ResetTrigger(Const.Attack3Name);
 		}
 		else
 		{
-			animator.SetTrigger(_attack3Name);
-			animator.ResetTrigger(_attack2Name);
+			animator.SetTrigger(Const.Attack3Name);
+			animator.ResetTrigger(Const.Attack2Name);
 		}
 	}
 

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D), typeof(EnemyController))]
+[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D), typeof(EnemyController))]
 public class EnemySpawner : MonoBehaviour
 {
 	[SerializeField] protected ElementEnum element;
@@ -31,7 +31,7 @@ public class EnemySpawner : MonoBehaviour
 
 		_curentTime = 0;
 
-		_enemyController.Init(this.element, this.color);
+		_enemyController.SetElement(this.element, this.color);
 	}
 
 	protected virtual void Update()
@@ -58,7 +58,7 @@ public class EnemySpawner : MonoBehaviour
 		gameObject.SetActive(true);
 		gameObject.transform.position = pos;
 		gameObject.TryGetComponent(out EnemyController enemyController);
-		enemyController.Init(element, color);
+		enemyController.SetElement(element, color);
 	}
 
 	private void OnDrawGizmos()

@@ -1,9 +1,8 @@
 public class PebbleHealth : EnemyHealth
 {
-	public override void Init(ElementEnum element)
+	protected override void OnEnable()
 	{
-		base.Init(element);
-
-		animator.SetTrigger("Run");
+		base.OnEnable();
+		animator.SetTrigger(Const.RunName);
 	}
 }

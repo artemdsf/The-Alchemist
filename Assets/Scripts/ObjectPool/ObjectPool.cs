@@ -43,8 +43,8 @@ public class ObjectPool : MonoBehaviour
 	private GameObject AddPooledObject()
 	{
 		GameObject tmp = Instantiate(objectToPool, transform);
-		pooledObjects.Add(tmp);
 		tmp.SetActive(false);
+		pooledObjects.Add(tmp);
 		return tmp;
 	}
 }

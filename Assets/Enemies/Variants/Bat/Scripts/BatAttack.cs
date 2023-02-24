@@ -28,12 +28,12 @@ public class BatAttack : EnemyAttack
 
 	private void StartAttack()
 	{
-		animator.SetTrigger("Attack");
+		animator.SetTrigger(Const.Attack1Name);
 	}
 
 	private void EndAttack()
 	{
-		animator.ResetTrigger("Attack");
+		animator.ResetTrigger(Const.Attack1Name);
 	}
 
 	private bool CheckRange()

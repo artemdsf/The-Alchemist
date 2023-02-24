@@ -1,22 +1,20 @@
 using UnityEngine;
 
+//Must be last in the hierarchy
 [RequireComponent(typeof(GolemHealth), typeof(GolemAttack), typeof(GolemAttack))]
 [RequireComponent(typeof(Animator))]
 public class GolemController : EnemyController
 {
+	public Animator Animator { get; private set; }
+	public GolemState CurentState { get; private set; }
+	
 	[SerializeField] private float _timeToChangeDir;
 	[SerializeField] [Range(0, 1)] private float _wobbleRatio;
 	[SerializeField] private float _lerpRatio;
 	[SerializeField] private RuntimeAnimatorController[] animators;
-	public Animator Animator { get; private set; }
-	public GolemState CurentState { get; private set; }
-	public GolemState MaxState { get; private set; }
-	public int RebirthsCount { get; private set; }
-
 	[SerializeField] private GolemAttackA _golemAttackA;
 	[SerializeField] private GolemAttackB _golemAttackB;
 	[SerializeField] private GolemAttackC _golemAttackC;
-
 	[SerializeField] private GolemHealth _golemHealth;
 	
 	private Vector3 _lastDirection = Vector3.zero;
@@ -24,13 +22,10 @@ public class GolemController : EnemyController
 	private float _currentTimeToChangeDir;
 	private bool _isAbleToMove = true;
 
-	public void InitBoss(ElementEnum element, Color color, GolemState maxState, int rebirthCount)
+	public void InitBoss(ElementEnum element, Color color, int rebirthCount)
 	{
-		RebirthsCount = rebirthCount;
-		MaxState = maxState;
-		_golemHealth.Init(rebirthCount);
-		ChangeState(maxState);
-		Init(element, color);
+		_golemHealth.SetRebirthCount(rebirthCount);
+		SetElement(element, color);
 	}
 
 	public void ChangeState(GolemState state)
@@ -108,9 +103,9 @@ public class GolemController : EnemyController
 		_isAbleToMove = true;
 	}
 
-	private void OnDrawGizmos()
+	private void OnEnable()
 	{
-		Gizmos.DrawLine(transform.position, transform.position + _currentDirection);
+		ChangeState(GolemState.C);
 	}
 
 	private Vector3 GetRandomDirection()
@@ -119,5 +114,10 @@ public class GolemController : EnemyController
 		Vector3 dir = new Vector3(Mathf.Sin(rot), Mathf.Cos(rot), 0) * _wobbleRatio;
 		dir += (player.transform.position - transform.position).normalized;
 		return dir.normalized;
+	}
+
+	private void OnDrawGizmos()
+	{
+		Gizmos.DrawLine(transform.position, transform.position + _currentDirection);
 	}
 }

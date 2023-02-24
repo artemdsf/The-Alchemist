@@ -4,20 +4,17 @@ using UnityEngine;
 public class GolemAttackC : GolemAttackState
 {
 	[Header("Ability")]
-	[SerializeField] private string _abilityName = "Ability";
 	[SerializeField] private int _damage = 5;
 	[SerializeField] private int _abilityThornsCount = 4;
 	[SerializeField] private float _directionsCount = 8;
 	[SerializeField] private float _offset = 5;
 	[SerializeField] private float _time = 2;
 	[Header("Attack1")]
-	[SerializeField] private string _attack1Name = "Attack";
 	[SerializeField] private int _damage1 = 5;
 	[SerializeField] private int _attackThornsCount = 8;
 	[SerializeField] private float _attackOffset = 5;
 	[SerializeField] private string _attack1PoolName;
 	[Header("Attack2")]
-	[SerializeField] private string _attack2Name = "Attack2";
 	[SerializeField] private int _damage2 = 5;
 	[SerializeField] private int _attackProjsCount = 4;
 	[SerializeField] private float _startAngle = 45;
@@ -26,7 +23,6 @@ public class GolemAttackC : GolemAttackState
 	[Header("Attack3")]
 	[SerializeField] private float _slideSpeed = 5;
 	[SerializeField] private float _slideLerpRatio = 1;
-	[SerializeField] private string _attack3Name = "Attack3";
 	[Header("Rebirth")]
 	[SerializeField] private float _armor = 20;
 
@@ -50,7 +46,6 @@ public class GolemAttackC : GolemAttackState
 	protected override void Awake()
 	{
 		base.Awake();
-
 		_attack1Pool = GameObject.Find(_attack1PoolName)?.GetComponent<ObjectPool>();
 	}
 
@@ -198,25 +193,25 @@ public class GolemAttackC : GolemAttackState
 	private void Ability()
 	{
 		if (controller.CurentState == GOLEM_STATE)
-			animator.SetTrigger(_abilityName);
+			animator.SetTrigger(Const.AbilityName);
 	}
 
 	private void Attack1()
 	{
 		if (controller.CurentState == GOLEM_STATE)
-			animator.SetTrigger(_attack1Name);
+			animator.SetTrigger(Const.Attack1Name);
 	}
 
 	private void Attack2()
 	{
 		if (controller.CurentState == GOLEM_STATE)
-			animator.SetTrigger(_attack2Name);
+			animator.SetTrigger(Const.Attack2Name);
 	}
 
 	private void Attack3()
 	{
 		if (controller.CurentState == GOLEM_STATE)
-			animator.SetTrigger(_attack3Name);
+			animator.SetTrigger(Const.Attack3Name);
 	}
 
 	private void OnDrawGizmos()

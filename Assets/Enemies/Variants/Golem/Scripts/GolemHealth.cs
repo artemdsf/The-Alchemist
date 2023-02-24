@@ -6,14 +6,13 @@ public class GolemHealth : EnemyHealth
 
 	public bool IsImmuneToDamage { get; private set; }
 
-	private int _maxRebirthCount;
-	private int _rebirthCountLeft;
+	private int _maxRebirthCount = 0;
+	private int _rebirthCountLeft = 0;
 
-	public void Init(int rebirthCount)
+	public void SetRebirthCount(int rebirthCount)
 	{
 		_maxRebirthCount = rebirthCount;
 		_rebirthCountLeft = rebirthCount;
-		DisactiveImmuneToDamage();
 	}
 
 	public override void TakeDamage(ElementEnum element, float dmg)
@@ -21,7 +20,6 @@ public class GolemHealth : EnemyHealth
 		if (!IsImmuneToDamage && !IsDead)
 		{
 			base.TakeDamage(element, dmg);
-
 		}
 	}
 
@@ -43,5 +41,11 @@ public class GolemHealth : EnemyHealth
 	public void DisactiveImmuneToDamage()
 	{
 		IsImmuneToDamage = false;
+	}
+
+	protected override void OnEnable()
+	{
+		base.OnEnable();
+		DisactiveImmuneToDamage();
 	}
 }

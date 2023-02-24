@@ -44,11 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cbaab181e25d4042b3afcafca16ea59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  elementEnum: 2
-  delay: 5
-  _projectile: {fileID: 5771777744796331524, guid: 8bb3b38b2a36f5d4d9c961ad9fd31738, type: 3}
-  _speed: 5
+  _elementEnum: 3
+  _delay: 2
+  _damage: 20
+  _heal: 0
+  _speed: 20
   _rotationSpeed: 0
-  _lifeTime: 1
-  _canBeDestroyerd: 0
+  _lifeTime: 3
+  _canBeDestroyerd: 1
   _pool: {fileID: 0}

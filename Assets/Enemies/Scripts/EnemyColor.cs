@@ -2,13 +2,8 @@ using UnityEngine;
 
 public class EnemyColor : MonoBehaviour
 {
-	[SerializeField] private ParticleSystem[] particleSystems;
+	[SerializeField] private ParticleSystem[] _particleSystems;
 	private SpriteRenderer _spriteRenderer;
-
-	private void Awake()
-	{
-		TryGetComponent(out _spriteRenderer);
-	}
 
 	public void ChangeColor(Color color)
 	{
@@ -16,10 +11,15 @@ public class EnemyColor : MonoBehaviour
 			_spriteRenderer.color = color;
 
 		ParticleSystem.MainModule main;
-		for (int i = 0; i < particleSystems.Length; i++)
+		for (int i = 0; i < _particleSystems.Length; i++)
 		{
-			main = particleSystems[i].main;
+			main = _particleSystems[i].main;
 			main.startColor = new ParticleSystem.MinMaxGradient(color);
 		}
+	}
+
+	private void Awake()
+	{
+		TryGetComponent(out _spriteRenderer);
 	}
 }
